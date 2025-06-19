@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Juice Plus+ | Premium Cold-Pressed Juices</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo" data-aos="fade-down">Juice <span class="plus-glow">Plus+</span></div>
+            <ul class="nav-links" data-aos="fade-down">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="#" class="nav-cta">Order Now</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="contact-hero-content container">
+            <div class="contact-hero-text" data-aos="fade-right">
+                <h1>Get in <span>Touch</span></h1>
+                <p>Have questions, feedback, or special requests? We'd love to hear from you!</p>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>(555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>hello@juiceplus.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Visit Us</h4>
+                            <p>123 Juice Street, Beverage City</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-hero-image" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Juice Bar">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="contact-form-container container">
+            <div class="form-header" data-aos="fade-up">
+                <h2>Send Us a Message</h2>
+                <p>Fill out the form below and we'll get back to you within 24 hours</p>
+            </div>
+            <form id="contact-form" class="contact-form" data-aos="fade-up" data-aos-delay="100">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <i class="fas fa-comment"></i>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span>Send Message</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <div id="form-status"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section class="locations">
+        <div class="locations-container container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Our <span>Locations</span></h2>
+                <p>Visit us at one of our premium juice bars</p>
+            </div>
+            <div class="location-cards">
+                <div class="location-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="location-image">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Downtown Location">
+                    </div>
+                    <div class="location-info">
+                        <h3>Downtown Juice Bar</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Beverage City</p>
+                        <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 7am-9pm, Sun: 8am-7pm</p>
+                        <a href="#" class="location-btn">Get Directions</a>
+                    </div>
+                </div>
+                <div class="location-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="location-image">
+                        <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Westside Location">
+                    </div>
+                    <div class="location-info">
+                        <h3>Westside Cafe</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 456 Wellness Ave, Beverage City</p>
+                        <p><i class="fas fa-phone"></i> (555) 987-6543</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 8am-8pm, Sat-Sun: 9am-6pm</p>
+                        <a href="#" class="location-btn">Get Directions</a>
+                    </div>
+                </div>
+                <div class="location-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="location-image">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="East End Location">
+                    </div>
+                    <div class="location-info">
+                        <h3>East End Kiosk</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 789 Refresh Blvd, Beverage City</p>
+                        <p><i class="fas fa-phone"></i> (555) 456-7890</p>
+                        <p><i class="fas fa-clock"></i> Daily: 7:30am-7:30pm</p>
+                        <a href="#" class="location-btn">Get Directions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="faq-container container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Frequently Asked <span>Questions</span></h2>
+                <p>Find answers to common questions about Juice Plus+</p>
+            </div>
+            <div class="faq-accordion">
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                    <button class="accordion-header">
+                        <span>What makes Juice Plus+ different from other juice bars?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>At Juice Plus+, we use only the highest quality organic ingredients and cold-press our juices to preserve maximum nutrients. Our unique blends are crafted by nutritionists to deliver specific health benefits, and we never add preservatives, artificial flavors, or sweeteners.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                    <button class="accordion-header">
+                        <span>How long do your juices stay fresh?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Our cold-pressed juices stay fresh for up to 72 hours when refrigerated. For optimal freshness and nutrient retention, we recommend consuming them within 48 hours of purchase. All our bottles are clearly labeled with expiration dates.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                    <button class="accordion-header">
+                        <span>Do you offer juice cleanses or detox programs?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Yes! We offer customized cleanse programs ranging from 1-day resets to 5-day deep cleanses. Our nutritionists can help you select the right program based on your goals and lifestyle. Visit any of our locations to learn more about our cleanse options.</p>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+                    <button class="accordion-header">
+                        <span>Can I place an order for delivery or large events?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Absolutely! We offer delivery through our website and partner apps. For large orders (10+ juices) or events, please contact us at least 48 hours in advance. We also offer catering services with customizable juice menus for weddings, corporate events, and other special occasions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="newsletter-container container">
+            <div class="newsletter-content" data-aos="fade-up">
+                <h2>Join Our <span>Juice Community</span></h2>
+                <p>Subscribe to our newsletter for exclusive offers, new flavor announcements, and wellness tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address">
+                    <button type="submit">Subscribe <i class="fas fa-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="footer-main">
+                <div class="footer-col" data-aos="fade-up">
+                    <div class="footer-logo">Juice <span>Plus+</span></div>
+                    <p class="footer-about">Premium cold-pressed juices crafted with organic ingredients to nourish your body and delight your taste buds.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Our Menu</a></li>
+                        <li><a href="#">Nutrition Guide</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Our Locations</h4>
+                    <ul>
+                        <li><a href="#">Downtown Juice Bar</a></li>
+                        <li><a href="#">Westside Cafe</a></li>
+                        <li><a href="#">East End Kiosk</a></li>
+                        <li><a href="#">Northside Pop-up</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Beverage City</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> hello@juiceplus.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 7am-7pm, Sun: 8am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Juice Plus+. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

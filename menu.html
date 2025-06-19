@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juice Plus+ Menu | Premium Cold-Pressed Juices</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo" data-aos="fade-down">Juice <span class="plus-glow">Plus+</span></div>
+            <ul class="nav-links" data-aos="fade-down">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#" class="nav-cta">Order Now</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Menu Hero -->
+    <section class="menu-hero">
+        <div class="menu-hero-content container">
+            <div class="menu-hero-text" data-aos="fade-right">
+                <h1>Our Premium <span>Juice Menu</span></h1>
+                <p>Explore our selection of cold-pressed, nutrient-rich juices crafted to energize, detoxify, and nourish your body.</p>
+                <div class="menu-filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Juices</button>
+                    <button class="filter-btn" data-filter="detox">Detox</button>
+                    <button class="filter-btn" data-filter="energy">Energy</button>
+                    <button class="filter-btn" data-filter="immunity">Immunity</button>
+                </div>
+            </div>
+            <div class="menu-hero-image" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Juice Selection">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="full-menu">
+        <div class="menu-container container">
+            <div class="menu-category" data-aos="fade-up">
+                <h2 class="category-title">Signature Juices</h2>
+                <p class="category-description">Our most popular blends that customers keep coming back for</p>
+                <div class="menu-items">
+                    <div class="menu-item" data-category="energy">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Tropical Sunrise">
+                            <div class="item-badge bestseller">Bestseller</div>
+                        </div>
+                        <div class="item-info">
+                            <h3>Tropical Sunrise</h3>
+                            <p class="item-description">Mango, pineapple, orange & passionfruit with a hint of turmeric</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Energy Boost</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>210 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$7.99</span>
+                                <button class="add-to-cart" data-item="Tropical Sunrise" data-price="7.99">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="detox">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Green Detox">
+                            <div class="item-badge new">New</div>
+                        </div>
+                        <div class="item-info">
+                            <h3>Green Detox</h3>
+                            <p class="item-description">Kale, spinach, green apple, cucumber, lemon & ginger</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Detox</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>180 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$6.99</span>
+                                <button class="add-to-cart" data-item="Green Detox" data-price="6.99">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="energy">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Berry Blast">
+                        </div>
+                        <div class="item-info">
+                            <h3>Berry Blast</h3>
+                            <p class="item-description">Strawberry, blueberry, raspberry, blackberry & acai</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Energy Boost</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>240 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$8.49</span>
+                                <button class="add-to-cart" data-item="Berry Blast" data-price="8.49">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category" data-aos="fade-up">
+                <h2 class="category-title">Detox & Cleanses</h2>
+                <p class="category-description">Purify your system with our nutrient-packed detox blends</p>
+                <div class="menu-items">
+                    <div class="menu-item" data-category="detox">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Deep Cleanse">
+                        </div>
+                        <div class="item-info">
+                            <h3>Deep Cleanse</h3>
+                            <p class="item-description">Beetroot, carrot, apple, lemon & ginger</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Detox</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>195 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$7.49</span>
+                                <button class="add-to-cart" data-item="Deep Cleanse" data-price="7.49">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="detox">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Liver Flush">
+                        </div>
+                        <div class="item-info">
+                            <h3>Liver Flush</h3>
+                            <p class="item-description">Grapefruit, lemon, orange, turmeric & mint</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Detox</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>175 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$7.29</span>
+                                <button class="add-to-cart" data-item="Liver Flush" data-price="7.29">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="detox">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Alkaline Boost">
+                        </div>
+                        <div class="item-info">
+                            <h3>Alkaline Boost</h3>
+                            <p class="item-description">Cucumber, celery, spinach, parsley & lime</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-leaf"></i>
+                                    <span>Detox</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>120 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$6.79</span>
+                                <button class="add-to-cart" data-item="Alkaline Boost" data-price="6.79">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category" data-aos="fade-up">
+                <h2 class="category-title">Immunity Boosters</h2>
+                <p class="category-description">Strengthen your defenses with our vitamin-packed blends</p>
+                <div class="menu-items">
+                    <div class="menu-item" data-category="immunity">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Citrus Shield">
+                        </div>
+                        <div class="item-info">
+                            <h3>Citrus Shield</h3>
+                            <p class="item-description">Orange, grapefruit, lemon, ginger & echinacea</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Immunity</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>200 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$7.59</span>
+                                <button class="add-to-cart" data-item="Citrus Shield" data-price="7.59">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="immunity">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Turmeric Gold">
+                        </div>
+                        <div class="item-info">
+                            <h3>Turmeric Gold</h3>
+                            <p class="item-description">Carrot, orange, turmeric, black pepper & cinnamon</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Immunity</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>225 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$7.99</span>
+                                <button class="add-to-cart" data-item="Turmeric Gold" data-price="7.99">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-category="immunity">
+                        <div class="item-image">
+                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Ginger Zing">
+                        </div>
+                        <div class="item-info">
+                            <h3>Ginger Zing</h3>
+                            <p class="item-description">Apple, lemon, ginger, cayenne & honey</p>
+                            <div class="item-details">
+                                <div class="detail">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Immunity</span>
+                                </div>
+                                <div class="detail">
+                                    <i class="fas fa-fire"></i>
+                                    <span>190 cal</span>
+                                </div>
+                            </div>
+                            <div class="item-footer">
+                                <span class="item-price">$7.29</span>
+                                <button class="add-to-cart" data-item="Ginger Zing" data-price="7.29">
+                                    <i class="fas fa-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span class="total-price">$0.00</span>
+        </div>
+        <div class="cart-actions">
+            <button class="checkout-btn">Proceed to Checkout</button>
+            <button class="clear-cart">Clear Cart</button>
+        </div>
+    </div>
+    <div class="cart-overlay"></div>
+
+    <!-- Cart Button -->
+    <button class="cart-btn">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="footer-main">
+                <div class="footer-col" data-aos="fade-up">
+                    <div class="footer-logo">Juice <span>Plus+</span></div>
+                    <p class="footer-about">Premium cold-pressed juices crafted with organic ingredients to nourish your body and delight your taste buds.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Our Menu</a></li>
+                        <li><a href="#">Nutrition Guide</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Our Locations</h4>
+                    <ul>
+                        <li><a href="#">Downtown Juice Bar</a></li>
+                        <li><a href="#">Westside Cafe</a></li>
+                        <li><a href="#">East End Kiosk</a></li>
+                        <li><a href="#">Northside Pop-up</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Beverage City</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> hello@juiceplus.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 7am-7pm, Sun: 8am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Juice Plus+. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
