@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Juice Plus+</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+        }
+        .admin-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .admin-header h1 {
+            font-size: 3rem;
+            color: var(--dark-color);
+        }
+        .employee-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .employee-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .employee-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+        .employee-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .employee-card p {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        .employee-card .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .employee-card .actions button {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .add-employee {
+            text-align: center;
+        }
+        .add-employee button {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .add-employee button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        .role-select {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            font-size: 1.4rem;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Section -->
+    <div class="admin-container">
+        <div class="admin-header" data-aos="fade-down">
+            <h1>Admin Dashboard</h1>
+        </div>
+        <div class="employee-list" data-aos="fade-up">
+            <div class="employee-card">
+                <img src="https://via.placeholder.com/100" alt="Abel Kebede">
+                <h3>Abel Kebede</h3>
+                <p>Manager</p>
+                <p>+25190101745</p>
+                <p>$7000 Birr</p>
+                <div class="actions">
+                    <button>View</button>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+            <div class="employee-card">
+                <img src="https://via.placeholder.com/100" alt="Nahom Girum">
+                <h3>Nahom Girum</h3>
+                <p>Waiter</p>
+                <p>0987654321</p>
+                <p>$123 Birr</p>
+                <div class="actions">
+                    <button>View</button>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+            <div class="employee-card">
+                <img src="https://via.placeholder.com/100" alt="Martha Tadese">
+                <h3>Martha Tadese</h3>
+                <p>Waiter</p>
+                <p>1234</p>
+                <p>$12 Birr</p>
+                <div class="actions">
+                    <button>View</button>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+        </div>
+        <div class="add-employee" data-aos="fade-up">
+            <button id="addEmployeeBtn">Add Employee</button>
+            <select class="role-select" id="roleSelect">
+                <option value="manager">Manager</option>
+                <option value="waiter">Waiter</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('addEmployeeBtn').addEventListener('click', () => {
+            alert('Add Employee functionality will be implemented with PHP/MySQL backend.');
+        });
+    </script>
+</body>
+</html>
