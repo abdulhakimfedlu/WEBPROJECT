@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => preloader.style.display = 'none', 500);
         });
     }
-
+    
+    
     // Hamburger Menu
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
