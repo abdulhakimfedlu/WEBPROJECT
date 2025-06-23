@@ -25,10 +25,10 @@
         <nav class="nav container">
             <div class="logo" data-aos="fade-down">Juice <span class="plus-glow">Plus+</span></div>
             <ul class="nav-links" data-aos="fade-down">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.php" class="active">Home</a></li>
+                <li><a href="menu.php">Menu</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <li><a href="#" class="nav-cta">Order Now</a></li>
             </ul>
             <div class="hamburger">
@@ -52,7 +52,7 @@
                     Where <span class="highlight-text">nature meets innovation</span> - Experience the ultimate fusion of exotic fruits, superfoods, and unparalleled freshness
                 </p>
                 <div class="hero-buttons">
-                    <a href="menu.html" class="hero-btn primary-btn">Explore Menu</a>
+                    <a href="menu.php" class="hero-btn primary-btn">Explore Menu</a>
                     <a href="about.html" class="hero-btn secondary-btn">
                         <i class="fas fa-info-circle"></i> About Us
                     </a>
@@ -85,7 +85,7 @@
         <div class="about-content container">
             <div class="about-text" data-aos="fade-right">
                 <h2 class="section-title">About <span class="highlight-text">Juice Plus+</span></h2>
-                <p class="section-description">Founded in 2020, Juice Plus+ is dedicated to bringing the freshest, most nutrient-packed juices to our community. Our mission is to promote wellness through nature’s finest ingredients, crafted with care and innovation.</p>
+                <p class="section-description">Founded in 2020, Juice Plus+ is dedicated to bringing the freshest, most nutrient-packed juices to our community. Our mission is to promote wellness through nature's finest ingredients, crafted with care and innovation.</p>
                 <div class="about-values">
                     <div class="value-item">
                         <i class="fas fa-leaf"></i>
@@ -200,7 +200,7 @@
                 <p>Join the Juice Plus+ community and enjoy premium juices delivered fresh to your door.</p>
             </div>
             <div class="cta-form" data-aos="fade-left">
-                <a href="menu.html" class="hero-btn primary-btn">Order Now</a>
+                <a href="menu.php" class="hero-btn primary-btn">Order Now</a>
             </div>
         </div>
     </section>
@@ -222,10 +222,10 @@
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="menu.html">Our Menu</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="menu.php">Our Menu</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="200">

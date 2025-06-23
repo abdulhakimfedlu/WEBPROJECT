@@ -183,7 +183,8 @@
         /* Lists */
         .employee-list,
         .food-items-list,
-        .categories-list {
+        .categories-list,
+        .order-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
@@ -192,7 +193,8 @@
 
         .employee-card,
         .food-item-card,
-        .category-card {
+        .category-card,
+        .order-card {
             background: white;
             padding: 2rem;
             border-radius: 15px;
@@ -203,7 +205,8 @@
 
         .employee-card:hover,
         .food-item-card:hover,
-        .category-card:hover {
+        .category-card:hover,
+        .order-card:hover {
             transform: translateY(-5px);
         }
 
@@ -218,22 +221,24 @@
 
         .employee-card h3,
         .food-item-card h3,
-        .category-card h3 {
+        .category-card h3,
+        .order-card h3 {
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
 
         .employee-card p,
         .food-item-card p,
-        .category-card p {
+        .category-card p,
+        .order-card p {
             font-size: 1.4rem;
             color: var(--text-light);
             margin-bottom: 0.5rem;
         }
 
         .employee-card .actions,
-        .food-item-card .actions,
-        .category-card .actions {
+        .food-item-card .actions .category-card,
+        .actions {
             display: flex;
             gap: 0.5rem;
             justify-content: center;
@@ -502,6 +507,17 @@
             color: var(--text-light);
         }
 
+        /* Orders Section */
+        .orders-section {
+            margin-top: 3rem;
+        }
+
+        .orders-section h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 2rem;
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .admin-sidebar {
@@ -559,7 +575,8 @@
         @media (max-width: 576px) {
             .employee-list,
             .food-items-list,
-            .categories-list {
+            .categories-list,
+            .order-list {
                 grid-template-columns: 1fr;
             }
 
@@ -594,7 +611,7 @@
                     <li><a href="#inventory"><i class="fas fa-boxes" aria-label="Inventory"></i><span>Inventory</span></a></li>
                     <li><a href="#settings"><i class="fas fa-cog" aria-label="Settings"></i><span>Settings</span></a></li>
                     <li><a href="#reports"><i class="fas fa-chart-bar" aria-label="Reports"></i><span>Reports</span></a></li>
-                    <li><a href="index.html"><i class="fas fa-sign-out-alt" aria-label="Logout"></i><span>Logout</span></a></li>
+                    <li><a href="index.php"><i class="fas fa-sign-out-alt" aria-label="Logout"></i><span>Logout</span></a></li>
                 </ul>
             </div>
         </nav>
@@ -794,6 +811,12 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Orders Section -->
+            <div class="orders-section">
+                <h2>Orders</h2>
+                <div class="order-list"></div>
+            </div>
         </main>
     </div>
 
@@ -804,11 +827,11 @@
             <form id="addEmployeeForm">
                 <div class="form-group">
                     <label for="employeeName">Full Name</label>
-                    <input type="text" id="employeeName" required>
+                    <input type="text" id="employeeName" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="employeeRole">Role</label>
-                    <select id="employeeRole" required>
+                    <select id="employeeRole" name="role" required>
                         <option value="manager">Manager</option>
                         <option value="waiter">Waiter</option>
                         <option value="barista">Barista</option>
@@ -816,15 +839,15 @@
                 </div>
                 <div class="form-group">
                     <label for="employeePhone">Phone Number</label>
-                    <input type="tel" id="employeePhone" required>
+                    <input type="tel" id="employeePhone" name="phone" required>
                 </div>
                 <div class="form-group">
                     <label for="employeeSalary">Salary (Birr)</label>
-                    <input type="number" id="employeeSalary" required>
+                    <input type="number" id="employeeSalary" name="salary" required>
                 </div>
                 <div class="form-group">
                     <label for="employeePhoto">Employee Photo</label>
-                    <input type="file" id="employeePhoto" accept="image/*">
+                    <input type="file" id="employeePhoto" name="photo" accept="image/*">
                     <img id="employeePhotoPreview" class="image-preview" alt="Photo preview">
                 </div>
                 <div class="modal-actions">
@@ -895,30 +918,30 @@
             <form id="addFoodItemForm">
                 <div class="form-group">
                     <label for="foodName">Item Name</label>
-                    <input type="text" id="foodName" required>
+                    <input type="text" id="foodName" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="foodPrice">Price ($)</label>
-                    <input type="number" id="foodPrice" step="0.01" required>
+                    <input type="number" id="foodPrice" name="price" step="0.01" required>
                 </div>
                 <div class="form-group">
                     <label for="foodDescription">Description</label>
-                    <textarea id="foodDescription" required></textarea>
+                    <textarea id="foodDescription" name="description" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="foodCategory">Category</label>
-                    <select id="foodCategory" required>
+                    <select id="foodCategory" name="category" required>
                         <!-- Populated dynamically -->
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="foodPhoto">Item Photo</label>
-                    <input type="file" id="foodPhoto" accept="image/*">
+                    <input type="file" id="foodPhoto" name="photo" accept="image/*">
                     <img id="foodPhotoPreview" class="image-preview" alt="Photo preview">
                 </div>
                 <div class="form-group">
                     <label for="foodBadge">Badge (optional)</label>
-                    <select id="foodBadge">
+                    <select id="foodBadge" name="badge">
                         <option value="">None</option>
                         <option value="Bestseller">Bestseller</option>
                         <option value="New">New</option>
@@ -1063,7 +1086,7 @@
 
         let foodItems = [
             { id: 1, name: 'Tropical Sunrise', price: 7.99, description: 'Mango, pineapple, orange & passionfruit with a hint of turmeric', category: 'Signature Juices', photo: 'https://via.placeholder.com/100', badge: 'Bestseller' },
-            { id: 2, name: 'Green Detox', price: 6.99, description: 'Kale, spinach, green apple, cucumber, lemon & ginger', category: 'Detox & Cleanses', photo: 'https://via.placeholder.com/100', badge: 'New' },
+            { id: 2, name: 'Green Detox', price: 6.99, description: 'Kale, Berry, green apple, lemon & ginger', category: 'Detox & Cleanses', photo: 'https://via.placeholder.com/100', badge: 'New' },
             { id: 3, name: 'Berry Blast', price: 8.49, description: 'Strawberry, blueberry, raspberry, blackberry & acai', category: 'Signature Juices', photo: 'https://via.placeholder.com/100', badge: '' }
         ];
 
@@ -1118,6 +1141,159 @@
             const tabContents = document.querySelectorAll('.tab-content');
             const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
             const contentPages = document.querySelectorAll('.content-page');
+
+            // Add Food
+            if (addFoodItemForm) {
+                addFoodItemForm.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const formData = new FormData(addFoodItemForm);
+                    formData.append('action', 'add_food');
+
+                    fetch('admin_process.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            addFoodItemForm.reset();
+                            loadFoods();
+                        }
+                    })
+                    .catch(() => alert('An error occurred.'));
+                });
+            }
+
+            // Add Employee
+            if (addEmployeeForm) {
+                addEmployeeForm.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const formData = new FormData(addEmployeeForm);
+                    formData.append('action', 'add_employee');
+
+                    fetch('admin_process.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            addEmployeeForm.reset();
+                            loadEmployees();
+                        }
+                    })
+                    .catch(() => alert('An error occurred.'));
+                });
+            }
+
+            // Load Foods
+            function loadFoods() {
+                fetch('get_foods.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        foodItemsList.innerHTML = '';
+                        data.forEach(item => {
+                            const foodCard = document.createElement('div');
+                            foodCard.classList.add('food-card');
+                            foodCard.innerHTML = `
+                                <h3>${item.name}</h3>
+                                <p>${item.description}</p>
+                                <p>Price: $${item.price}</p>
+                                <p>Category: ${item.category}</p>
+                                ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width:100px;">` : ''}
+                                ${item.badge ? `<span>${item.badge}</span>` : ''}
+                                <button onclick="deleteFood(${item.id})">Delete</button>
+                            `;
+                            foodItemsList.appendChild(foodCard);
+                        });
+                    });
+            }
+
+            // Load Employees
+            function loadEmployees() {
+                fetch('get_employees.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        employeeList.innerHTML = '';
+                        data.forEach(employee => {
+                            const employeeCard = document.createElement('div');
+                            employeeCard.classList.add('employee-card');
+                            employeeCard.innerHTML = `
+                                <h3>${employee.name}</h3>
+                                <p>Role: ${employee.role}</p>
+                                ${employee.image ? `<img src="${employee.image}" alt="${employee.name}" style="width:100px;">` : ''}
+                                <button onclick="deleteEmployee(${employee.id})">Delete</button>
+                            `;
+                            employeeList.appendChild(employeeCard);
+                        });
+                    });
+            }
+
+            // Load Orders
+            function loadOrders() {
+                fetch('get_orders.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const orderList = document.querySelector('.order-list');
+                        orderList.innerHTML = '';
+                        data.forEach(order => {
+                            const orderCard = document.createElement('div');
+                            orderCard.classList.add('order-card');
+                            orderCard.innerHTML = `
+                                <h3>Order #${order.id}</h3>
+                                <p>Total: $${order.total_amount}</p>
+                                <p>Status: ${order.status}</p>
+                                <p>Placed: ${order.created_at}</p>
+                                <ul>
+                                    ${order.items.map(item => `<li>${item.name} x${item.quantity} ($${item.price})</li>`).join('')}
+                                </ul>
+                            `;
+                            orderList.appendChild(orderCard);
+                        });
+                    });
+            }
+
+            // Delete Food
+            window.deleteFood = function(id) {
+                if (confirm('Are you sure?')) {
+                    const formData = new FormData();
+                    formData.append('action', 'delete_food');
+                    formData.append('id', id);
+
+                    fetch('admin_process.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) loadFoods();
+                    })
+                    .catch(() => alert('An error occurred.'));
+                }
+            };
+
+            // Delete Employee
+            window.deleteEmployee = function(id) {
+                if (confirm('Are you sure?')) {
+                    const formData = new FormData();
+                    formData.append('action', 'delete_employee');
+                    formData.append('id', id);
+
+                    fetch('admin_process.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) loadEmployees();
+                    })
+                    .catch(() => alert('An error occurred.'));
+                }
+            };
 
             // Photo Preview Handlers
             employeePhotoInput.addEventListener('change', () => {
@@ -1227,7 +1403,7 @@
                         <p>${category.description}</p>
                         <div class="actions">
                             <button class="view-btn" data-name="${category.name}" aria-label="View category"><i class="fas fa-eye"></i></button>
-                            <button class="edit-btn" data-name="${category.name}" aria-label="Edit category"><i class="fas fa-edit"></i></button>
+                            <button class="edit-btn" data-name="${category.name}" aria-label="Edit"><i class="fas fa-edit"></i></button>
                             <button class="delete-btn" data-name="${category.name}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
                         </div>
                     `;
@@ -1252,7 +1428,7 @@
                 link.addEventListener('click', e => {
                     e.preventDefault();
                     const target = link.getAttribute('href').substring(1);
-                    if (target !== 'index.html') {
+                    if (target !== 'index.php') {
                         sidebarLinks.forEach(l => l.classList.remove('active'));
                         link.classList.add('active');
                         contentPages.forEach(page => page.classList.remove('active'));
@@ -1558,12 +1734,15 @@
                 });
             }
 
-            // Initialize
+            // Initial Load
             renderEmployees();
             renderFoodItems();
             renderCategories();
+            loadOrders();
+            loadFoods();
+            loadEmployees();
 
-            // Expose data for menu.html
+            // Expose data for menu.js
             window.menuData = { 
                 foodItems: foodItems.map(item => ({ ...item, image: item.photo })), 
                 categories 

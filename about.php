@@ -25,10 +25,10 @@
         <nav class="nav container">
             <div class="logo" data-aos="fade-down">Juice <span class="plus-glow">Plus+</span></div>
             <ul class="nav-links" data-aos="fade-down">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="menu.php">Menu</a></li>
+                <li><a href="about.php" class="active">About</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <li><a href="#" class="nav-cta">Order Now</a></li>
             </ul>
             <div class="hamburger">
@@ -56,7 +56,7 @@
     <section class="our-story">
         <div class="our-story-content container">
             <h2 class="section-title">Our <span class="highlight-text">Story</span></h2>
-            <p class="section-description">Juice Plus+ was founded in 2020 with a simple mission: to bring the freshest, most nutrient-packed juices to our community. Inspired by a love for wellness and sustainable living, we set out to create juices that not only taste incredible but also promote health and vitality. Today, we’re proud to be a trusted name in cold-pressed juicing, sourcing organic ingredients from local farms and using innovative techniques to preserve every drop of goodness.</p>
+            <p class="section-description">Juice Plus+ was founded in 2020 with a simple mission: to bring the freshest, most nutrient-packed juices to our community. Inspired by a love for wellness and sustainable living, we set out to create juices that not only taste incredible but also promote health and vitality. Today, we're proud to be a trusted name in cold-pressed juicing, sourcing organic ingredients from local farms and using innovative techniques to preserve every drop of goodness.</p>
         </div>
     </section>
 
@@ -65,7 +65,7 @@
         <div class="our-mission-content container">
             <div class="mission-text" data-aos="fade-right">
                 <h2 class="section-title">Our <span class="highlight-text">Mission</span></h2>
-                <p class="section-description">At Juice Plus+, we believe that wellness starts with what you put into your body. Our mission is to craft juices that are as delicious as they are nutritious, using only the finest organic ingredients. We’re committed to sustainability, community, and innovation, ensuring every bottle supports a healthier you and a healthier planet.</p>
+                <p class="section-description">At Juice Plus+, we believe that wellness starts with what you put into your body. Our mission is to craft juices that are as delicious as they are nutritious, using only the finest organic ingredients. We're committed to sustainability, community, and innovation, ensuring every bottle supports a healthier you and a healthier planet.</p>
             </div>
             <div class="mission-image" data-aos="fade-left">
                 <!-- <img src="" alt="Our Mission"> -->
@@ -115,10 +115,10 @@
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="menu.html">Our Menu</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="menu.php">Our Menu</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="200">

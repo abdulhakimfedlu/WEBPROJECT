@@ -25,11 +25,11 @@
         <nav class="nav container">
             <div class="logo" data-aos="fade-down">Juice <span class="plus-glow">Plus+</span></div>
             <ul class="nav-links" data-aos="fade-down">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-                <li><a href="#" class="nav-cta">Order Now</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="menu.php">Menu</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php" class="active">Contact</a></li>
+                <li><a href="admin.php" class="nav-cta">Admin</a></li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -82,34 +82,66 @@
                 <h2>Send Us a Message</h2>
                 <p>Fill out the form below and we'll get back to you within 24 hours</p>
             </div>
-            <form id="contact-form" class="contact-form" data-aos="fade-up" data-aos-delay="100">
+            <?php
+            require_once 'db_connect.php';
+            $success = '';
+            $error = '';
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $name = trim($_POST['name']);
+                $email = trim($_POST['email']);
+                $subject = trim($_POST['subject']);
+                $message = trim($_POST['message']);
+
+                // Basic validation
+                if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+                    $error = 'All fields are required.';
+                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $error = 'Invalid email format.';
+                } else {
+                    // Prepare and execute SQL
+                    $stmt = $conn->prepare("INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)");
+                    $stmt->bind_param("ssss", $name, $email, $subject, $message);
+
+                    if ($stmt->execute()) {
+                        $success = 'Message sent successfully!';
+                    } else {
+                        $error = 'Failed to send message. Please try again.';
+                    }
+                    $stmt->close();
+                }
+            }
+            ?>
+            <form id="contact-form" class="contact-form" data-aos="fade-up" data-aos-delay="100" method="POST" action="contact.php">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required>
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
                         <i class="fas fa-envelope"></i>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" required>
+                    <input type="text" id="subject" name="subject" value="<?php echo isset($_POST['subject']) ? htmlspecialchars($_POST['subject']) : ''; ?>" required>
                     <i class="fas fa-tag"></i>
                 </div>
                 <div class="form-group">
                     <label for="message">Your Message</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <textarea id="message" name="message" rows="5" required><?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?></textarea>
                     <i class="fas fa-comment"></i>
                 </div>
                 <button type="submit" class="submit-btn">
                     <span>Send Message</span>
                     <i class="fas fa-paper-plane"></i>
                 </button>
-                <div id="form-status"></div>
+                <div id="form-status" class="<?php echo $success ? 'success' : ($error ? 'error' : ''); ?>">
+                    <?php echo $success ?: $error; ?>
+                </div>
             </form>
         </div>
     </section>
@@ -227,10 +259,11 @@
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="menu.html">Our Menu</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="menu.php">Our Menu</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
+                        <li><a href="admin.php">Admin</a></li>
                     </ul>
                 </div>
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="200">

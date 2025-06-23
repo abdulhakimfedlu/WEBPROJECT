@@ -187,18 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Contact Form
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
-    if (contactForm && formStatus) {
-        contactForm.addEventListener('submit', e => {
-            e.preventDefault();
-            formStatus.textContent = 'Sending...';
-
-            setTimeout(() => {
-                formStatus.classList.add('success');
-                formStatus.textContent = 'Message sent successfully!';
-                contactForm.reset();
-            }, 1000);
-        });
-    }
+    // Remove the JS submit handler to allow default PHP form submission
 
     // FAQ Accordion
     document.querySelectorAll('.accordion-header').forEach(header => {

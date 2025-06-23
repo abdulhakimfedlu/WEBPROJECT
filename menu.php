@@ -25,10 +25,10 @@
         <nav class="nav container">
             <div class="logo" data-aos="fade-down">Juice <span class="plus-glow">Plus+</span></div>
             <ul class="nav-links" data-aos="fade-down">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="menu.html" class="active">Menu</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="menu.php" class="active">Menu</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <li><a href="#" class="nav-cta">Order Now</a></li>
             </ul>
             <div class="hamburger">
@@ -59,61 +59,56 @@
     </section>
 
     <!-- Menu Section -->
-    <section class="full-menu">
-        <div class="menu-container container">
+  <?php
+require_once 'db_connect.php';
+$categories = [];
+$foods = [];
+
+$result = $conn->query("SELECT DISTINCT category FROM foods ORDER BY category");
+while ($row = $result->fetch_assoc()) {
+    $categories[] = $row['category'];
+}
+
+$result = $conn->query("SELECT * FROM foods ORDER BY created_at DESC");
+while ($row = $result->fetch_assoc()) {
+    $foods[] = $row;
+}
+?>
+
+<section class="full-menu">
+    <div class="menu-container container">
+        <?php foreach ($categories as $category): ?>
             <div class="menu-category" data-aos="fade-up">
-                <h2 class="category-title">Signature Juices</h2>
-                <p class="category-description">Our most popular blends that customers keep coming back for</p>
+                <h2 class="category-title"><?php echo htmlspecialchars($category); ?></h2>
+                <p class="category-description">Explore our premium juices in the <?php echo htmlspecialchars($category); ?> category.</p>
                 <div class="menu-items">
-                    <div class="menu-item" data-category="energy">
-                        <div class="item-image">
-                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Tropical Sunrise">
-                            <div class="item-badge bestseller">Bestseller</div>
-                        </div>
-                        <div class="item-info">
-                            <h3>Tropical Sunrise</h3>
-                            <p class="item-description">Mango, pineapple, orange & passionfruit with a hint of turmeric</p>
-                            <div class="item-footer">
-                                <span class="item-price">$7.99</span>
-                                <button class="add-to-cart" data-item="Tropical Sunrise" data-price="7.99">
-                                    <i class="fas fa-plus"></i> Order
-                                </button>
+                    <?php foreach ($foods as $food): ?>
+                        <?php if ($food['category'] === $category): ?>
+                            <div class="menu-item" data-category="<?php echo htmlspecialchars(strtolower($category)); ?>">
+                                <div class="item-image">
+                                    <img src="<?php echo htmlspecialchars($food['image'] ?: 'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?auto=format&fit=crop&w=880&q=80'); ?>" alt="<?php echo htmlspecialchars($food['name']); ?>">
+                                    <?php if ($food['badge']): ?>
+                                        <div class="item-badge <?php echo htmlspecialchars(strtolower($food['badge'])); ?>"><?php echo htmlspecialchars($food['badge']); ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="item-info">
+                                    <h3><?php echo htmlspecialchars($food['name']); ?></h3>
+                                    <p class="item-description"><?php echo htmlspecialchars($food['description']); ?></p>
+                                    <div class="item-footer">
+                                        <span class="item-price">$<?php echo number_format($food['price'], 2); ?></span>
+                                        <button class="add-to-cart" data-item="<?php echo htmlspecialchars($food['name']); ?>" data-price="<?php echo $food['price']; ?>">
+                                            <i class="fas fa-plus"></i> Order
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="menu-item" data-category="detox">
-                        <div class="item-image">
-                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Green Detox">
-                            <div class="item-badge new">New</div>
-                        </div>
-                        <div class="item-info">
-                            <h3>Green Detox</h3>
-                            <p class="item-description">Kale, spinach, green apple, cucumber, lemon & ginger</p>
-                            <div class="item-footer">
-                                <span class="item-price">$6.99</span>
-                                <button class="add-to-cart" data-item="Green Detox" data-price="6.99">
-                                    <i class="fas fa-plus"></i> Order
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-item" data-category="energy">
-                        <div class="item-image">
-                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Berry Blast">
-                        </div>
-                        <div class="item-info">
-                            <h3>Berry Blast</h3>
-                            <p class="item-description">Strawberry, blueberry, raspberry, blackberry & acai</p>
-                            <div class="item-footer">
-                                <span class="item-price">$8.49</span>
-                                <button class="add-to-cart" data-item="Berry Blast" data-price="8.49">
-                                    <i class="fas fa-plus"></i> Order
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
+        <?php endforeach; ?>
+    </div>
+</section>
 
             <div class="menu-category" data-aos="fade-up">
                 <h2 class="category-title">Detox & Cleanses</h2>
@@ -199,10 +194,10 @@
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="100">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="menu.html">Our Menu</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="menu.php">Our Menu</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
@@ -240,40 +235,55 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
     <script>
-        // Payment Modal Logic
-        const checkoutBtn = document.querySelector('.checkout-btn');
-        const paymentModal = document.querySelector('.payment-modal');
-        const closePaymentBtn = document.querySelector('.close-payment');
-        const paymentForm = document.getElementById('payment-form');
+document.addEventListener('DOMContentLoaded', () => {
+    const checkoutBtn = document.querySelector('.checkout-btn');
+    const paymentModal = document.querySelector('.payment-modal');
+    const closePaymentBtn = document.querySelector('.close-payment');
+    const paymentForm = document.getElementById('payment-form');
 
-        if (checkoutBtn && paymentModal && closePaymentBtn && paymentForm) {
-            checkoutBtn.addEventListener('click', () => {
-                if (cart.length > 0) {
-                    paymentModal.style.display = 'block';
-                } else {
-                    alert('Your cart is empty!');
-                }
-            });
+    if (checkoutBtn && paymentModal && closePaymentBtn && paymentForm) {
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length > 0) {
+                paymentModal.style.display = 'block';
+            } else {
+                alert('Your cart is empty!');
+            }
+        });
 
-            closePaymentBtn.addEventListener('click', () => {
-                paymentModal.style.display = 'none';
-            });
+        closePaymentBtn.addEventListener('click', () => {
+            paymentModal.style.display = 'none';
+        });
 
-            paymentForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const paymentCode = document.getElementById('payment-code').value;
-                if (paymentCode && paymentCode.toLowerCase() === 'chap1234') { // Mock valid code
-                    alert('Payment successful! Thank you for your order.');
-                    cart = [];
-                    updateCart();
-                    paymentModal.style.display = 'none';
-                    cartSidebar.classList.remove('active');
-                    cartOverlay.classList.remove('active');
-                } else {
-                    alert('Invalid payment code. Please try again or contact support.');
-                }
-            });
-        }
-    </script>
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const paymentCode = document.getElementById('payment-code').value;
+            if (paymentCode.toLowerCase() === 'chap1234') {
+                const formData = new FormData();
+                formData.append('action', 'place_order');
+                formData.append('cart', JSON.stringify(cart));
+                formData.append('total', cart.reduce((sum, item) => sum + item.price * item.quantity, 0));
+
+                fetch('order_process.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.success) {
+                        cart = [];
+                        updateCart();
+                        paymentModal.style.display = 'none';
+                        paymentForm.reset();
+                    }
+                })
+                .catch(() => alert('An error occurred.'));
+            } else {
+                alert('Invalid payment code.');
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
