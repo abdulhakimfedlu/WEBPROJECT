@@ -627,6 +627,41 @@
             background: var(--primary-color);
             color: white;
         }
+
+        /* Add Orders tab/section */
+        .order-notification {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(80,80,80,0.08);
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1.5px solid #f0f0f0;
+            transition: box-shadow 0.2s, border 0.2s;
+        }
+        .order-notification:hover {
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.13);
+            border: 1.5px solid var(--primary-color);
+        }
+        .order-header {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .order-status {
+            font-size: 1.1rem;
+            color: #4ecdc4;
+            margin-bottom: 0.5rem;
+        }
+        .order-total {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .order-items ul {
+            margin: 0.5rem 0 0 1.2rem;
+            padding: 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -638,6 +673,10 @@
             <div class="sidebar-nav">
                 <ul>
                     <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt" aria-label="Dashboard"></i><span>Dashboard</span></a></li>
+                    <li><a href="#employees"><i class="fas fa-users" aria-label="Employees"></i><span>Employees</span></a></li>
+                    <li><a href="#food-items"><i class="fas fa-utensils" aria-label="Food Items"></i><span>Food Items</span></a></li>
+                    <li><a href="#categories"><i class="fas fa-list" aria-label="Categories"></i><span>Categories</span></a></li>
+                    <li><a href="#messages"><i class="fas fa-bell" aria-label="Messages"></i><span>Messages</span></a></li>
                     <li><a href="#inventory"><i class="fas fa-boxes" aria-label="Inventory"></i><span>Inventory</span></a></li>
                     <li><a href="#settings"><i class="fas fa-cog" aria-label="Settings"></i><span>Settings</span></a></li>
                     <li><a href="#reports"><i class="fas fa-chart-bar" aria-label="Reports"></i><span>Reports</span></a></li>
@@ -681,78 +720,47 @@
                         <p>Menu Items</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- Tabs -->
-                <div class="admin-tabs">
-                    <button class="tab-btn active" data-tab="employees">Employees</button>
-                    <button class="tab-btn" data-tab="food-items">Food Items</button>
-                    <button class="tab-btn" data-tab="categories">Categories</button>
+            <!-- Employees Page -->
+            <div class="content-page" id="employees">
+                <div class="admin-header">
+                    <h1>Employees</h1>
                 </div>
+                <div class="employee-list" id="employeeList"></div>
+                <div class="add-employee" data-aos="fade-up">
+                    <button id="addEmployeeBtn">Add Employee</button>
+                </div>
+            </div>
 
-                <!-- Employees Tab -->
-                <div class="tab-content employees active" id="employees">
-                    <div class="employee-list" id="employeeList">
-                        <div class="employee-card">
-                            <img src="https://via.placeholder.com/100" alt="Abel Kebede">
-                            <h3>Abel Kebede</h3>
-                            <p>Manager</p>
-                            <p>+25190101745</p>
-                            <p>7000 Birr</p>
-                            <div class="actions">
-                                <button class="view-btn" data-name="Abel Kebede" aria-label="View employee"><i class="fas fa-eye"></i></button>
-                                <button class="edit-btn" data-name="Abel Kebede" aria-label="Edit employee"><i class="fas fa-edit"></i></button>
-                                <button class="delete-btn" data-name="Abel Kebede" aria-label="Delete employee"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <div class="employee-card">
-                            <img src="https://via.placeholder.com/100" alt="Nahom Girum">
-                            <h3>Nahom Girum</h3>
-                            <p>Waiter</p>
-                            <p>+251987654321</p>
-                            <p>123 Birr</p>
-                            <div class="actions">
-                                <button class="view-btn" data-name="Nahom Girum" aria-label="View employee"><i class="fas fa-eye"></i></button>
-                                <button class="edit-btn" data-name="Nahom Girum" aria-label="Edit employee"><i class="fas fa-edit"></i></button>
-                                <button class="delete-btn" data-name="Nahom Girum" aria-label="Delete employee"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <div class="employee-card">
-                            <img src="https://via.placeholder.com/100" alt="Martha Tadese">
-                            <h3>Martha Tadese</h3>
-                            <p>Waiter</p>
-                            <p>+251123456789</p>
-                            <p>12 Birr</p>
-                            <div class="actions">
-                                <button class="view-btn" data-name="Martha Tadese" aria-label="View employee"><i class="fas fa-eye"></i></button>
-                                <button class="edit-btn" data-name="Martha Tadese" aria-label="Edit employee"><i class="fas fa-edit"></i></button>
-                                <button class="delete-btn" data-name="Martha Tadese" aria-label="Delete employee"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="add-employee" data-aos="fade-up">
-                        <button id="addEmployeeBtn">Add Employee</button>
-                    </div>
+            <!-- Food Items Page -->
+            <div class="content-page" id="food-items">
+                <div class="admin-header">
+                    <h1>Food Items</h1>
                 </div>
+                <div class="food-items-list" id="foodItemsList"></div>
+                <div class="add-food-item" data-aos="fade-up">
+                    <button id="addFoodItemBtn">Add Food Item</button>
+                </div>
+            </div>
 
-                <!-- Food Items Tab -->
-                <div class="tab-content food-items" id="food-items">
-                    <div class="food-items-list" id="foodItemsList">
-                        <!-- Dynamically populated -->
-                    </div>
-                    <div class="add-food-item" data-aos="fade-up">
-                        <button id="addFoodItemBtn">Add Food Item</button>
-                    </div>
+            <!-- Categories Page -->
+            <div class="content-page" id="categories">
+                <div class="admin-header">
+                    <h1>Categories</h1>
                 </div>
+                <div class="categories-list" id="categoriesList"></div>
+                <div class="add-category" data-aos="fade-up">
+                    <button id="addCategoryBtn">Add Category</button>
+                </div>
+            </div>
 
-                <!-- Categories Tab -->
-                <div class="tab-content categories" id="categories">
-                    <div class="categories-list" id="categoriesList">
-                        <!-- Dynamically populated -->
-                    </div>
-                    <div class="add-category" data-aos="fade-up">
-                        <button id="addCategoryBtn">Add Category</button>
-                    </div>
+            <!-- Messages Page (Orders as messages) -->
+            <div class="content-page" id="messages">
+                <div class="admin-header">
+                    <h1>Messages</h1>
                 </div>
+                <div id="messagesSection"></div>
             </div>
 
             <!-- Inventory Page -->
@@ -840,12 +848,6 @@
                         <div class="chart-placeholder">Feedback Chart Placeholder</div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Orders Section -->
-            <div class="orders-section">
-                <h2>Orders</h2>
-                <div class="order-list"></div>
             </div>
         </main>
     </div>
@@ -1442,28 +1444,20 @@
                 addCategoryListeners();
             }
 
-            // Tab Switching
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    button.classList.add('active');
-                    document.getElementById(button.dataset.tab).classList.add('active');
-                    searchInput.placeholder = `Search ${button.dataset.tab}...`;
-                });
-            });
-
             // Sidebar Navigation
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', e => {
                     e.preventDefault();
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
                     const target = link.getAttribute('href').substring(1);
-                    if (target !== 'index.php') {
-                        sidebarLinks.forEach(l => l.classList.remove('active'));
-                        link.classList.add('active');
-                        contentPages.forEach(page => page.classList.remove('active'));
-                        document.getElementById(target).classList.add('active');
-                    }
+                    contentPages.forEach(page => page.classList.remove('active'));
+                    document.getElementById(target).classList.add('active');
+                    // Optionally, fetch data for the section if needed
+                    if (target === 'messages') fetchMessages();
+                    if (target === 'employees') loadEmployees();
+                    if (target === 'food-items') loadFoods();
+                    if (target === 'categories') renderCategories();
                 });
             });
 
@@ -1761,6 +1755,35 @@
                         document.getElementById('viewCategoryDescription').textContent = `Description: ${cat.description}`;
                         viewCategoryModal.style.display = 'flex';
                     });
+                });
+            }
+
+            // Fetch and render orders as messages
+            function fetchMessages() {
+                fetch('get_orders.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        renderMessages(data);
+                    });
+            }
+            function renderMessages(orders) {
+                const messagesSection = document.getElementById('messagesSection');
+                messagesSection.innerHTML = '';
+                if (!orders || orders.length === 0) {
+                    messagesSection.innerHTML = '<div style="text-align:center;color:#aaa;font-size:1.2rem;">No messages yet.</div>';
+                    return;
+                }
+                orders.forEach(order => {
+                    const card = document.createElement('div');
+                    card.classList.add('order-notification');
+                    card.innerHTML = `
+                        <div class="order-header">
+                            <strong>${order.customer_name}</strong> <span style="color:#888;">(Table ${order.table_number})</span>
+                            <span style="float:right;color:#aaa;font-size:1.1rem;">${order.created_at}</span>
+                        </div>
+                        <div class="order-items"><strong>Ordered:</strong><ul>${order.items.map(item => `<li>${item.name} x${item.quantity}</li>`).join('')}</ul></div>
+                    `;
+                    messagesSection.appendChild(card);
                 });
             }
 

@@ -2,26 +2,24 @@
 require_once 'db_connect.php';
 header('Content-Type: application/json');
 
-$result = $conn->query("SELECT o.*, GROUP_CONCAT(CONCAT(f.name, ':', oi.quantity, ':', oi.price) SEPARATOR ';') as items
-                       FROM orders o
-                       LEFT JOIN order_items oi ON o.id = oi.order_id
-                       LEFT JOIN foods f ON oi.food_id = f.id
-                       GROUP BY o.id
-                       ORDER BY o.created_at DESC");
-
+// Fetch all orders
+$orderResult = $conn->query("SELECT * FROM orders ORDER BY created_at DESC");
 $orders = [];
-while ($row = $result->fetch_assoc()) {
+while ($order = $orderResult->fetch_assoc()) {
+    $order_id = $order['id'];
+    // Fetch items for this order
     $items = [];
-    if ($row['items']) {
-        foreach (explode(';', $row['items']) as $item) {
-            list($name, $quantity, $price) = explode(':', $item);
-            $items[] = ['name' => $name, 'quantity' => $quantity, 'price' => $price];
-        }
+    $itemStmt = $conn->prepare("SELECT f.name, oi.quantity, oi.price FROM order_items oi JOIN foods f ON oi.food_id = f.id WHERE oi.order_id = ?");
+    $itemStmt->bind_param("i", $order_id);
+    $itemStmt->execute();
+    $itemResult = $itemStmt->get_result();
+    while ($item = $itemResult->fetch_assoc()) {
+        $items[] = $item;
     }
-    $row['items'] = $items;
-    $orders[] = $row;
+    $itemStmt->close();
+    $order['items'] = $items;
+    $orders[] = $order;
 }
-
 echo json_encode($orders);
 $conn->close();
 ?>
