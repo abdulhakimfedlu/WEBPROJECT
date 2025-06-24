@@ -662,6 +662,21 @@
             font-size: 1.1rem;
             color: #333;
         }
+
+        /* Add badge styles */
+        .badge {
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 50%;
+            padding: 0.2em 0.6em;
+            font-size: 1.1rem;
+            font-weight: 700;
+            vertical-align: super;
+            margin-left: 0.3em;
+            min-width: 1.7em;
+            text-align: center;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -676,7 +691,7 @@
                     <li><a href="#employees"><i class="fas fa-users" aria-label="Employees"></i><span>Employees</span></a></li>
                     <li><a href="#food-items"><i class="fas fa-utensils" aria-label="Food Items"></i><span>Food Items</span></a></li>
                     <li><a href="#categories"><i class="fas fa-list" aria-label="Categories"></i><span>Categories</span></a></li>
-                    <li><a href="#messages"><i class="fas fa-bell" aria-label="Messages"></i><span>Messages</span></a></li>
+                    <li><a href="#messages" id="messagesLink"><i class="fas fa-bell" aria-label="Messages"></i><span>Messages</span><span class="badge" id="messagesBadge" style="display:none;margin-left:8px;"></span></a></li>
                     <li><a href="#inventory"><i class="fas fa-boxes" aria-label="Inventory"></i><span>Inventory</span></a></li>
                     <li><a href="#settings"><i class="fas fa-cog" aria-label="Settings"></i><span>Settings</span></a></li>
                     <li><a href="#reports"><i class="fas fa-chart-bar" aria-label="Reports"></i><span>Reports</span></a></li>
@@ -1800,6 +1815,44 @@
                 foodItems: foodItems.map(item => ({ ...item, image: item.photo })), 
                 categories 
             };
+
+            // --- Order Notification Badge Logic ---
+            function updateMessagesBadge() {
+                fetch('get_orders.php')
+                    .then(response => response.json())
+                    .then(orders => {
+                        if (!orders || orders.length === 0) {
+                            document.getElementById('messagesBadge').style.display = 'none';
+                            return;
+                        }
+                        const lastSeenId = parseInt(localStorage.getItem('lastSeenOrderId') || '0', 10);
+                        // Orders are sorted DESC, so first is newest
+                        const unseen = orders.filter(order => order.id > lastSeenId);
+                        const badge = document.getElementById('messagesBadge');
+                        if (unseen.length > 0) {
+                            badge.textContent = unseen.length;
+                            badge.style.display = 'inline-block';
+                        } else {
+                            badge.style.display = 'none';
+                        }
+                    });
+            }
+            // Call on load and every 10 seconds
+            updateMessagesBadge();
+            setInterval(updateMessagesBadge, 10000);
+
+            // When admin opens Messages, update last seen and clear badge
+            const messagesLink = document.getElementById('messagesLink');
+            messagesLink.addEventListener('click', () => {
+                fetch('get_orders.php')
+                    .then(response => response.json())
+                    .then(orders => {
+                        if (orders && orders.length > 0) {
+                            localStorage.setItem('lastSeenOrderId', orders[0].id);
+                        }
+                        document.getElementById('messagesBadge').style.display = 'none';
+                    });
+            });
         });
     </script>
 </body>
