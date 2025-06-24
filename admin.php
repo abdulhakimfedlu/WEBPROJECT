@@ -677,6 +677,75 @@
             text-align: center;
             display: inline-block;
         }
+
+        /* Add a modal for order completion success */
+        .order-complete-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .order-complete-modal.active {
+            opacity: 1;
+            visibility: visible;
+            display: flex;
+        }
+        .order-complete-modal .modal-content {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .order-complete-modal.active .modal-content {
+            transform: scale(1);
+        }
+        .order-complete-modal .modal-icon {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            animation: bounceIn 0.8s ease;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .order-complete-modal h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        .order-complete-modal p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        .order-complete-modal .ok-btn {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .order-complete-modal .ok-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -1115,6 +1184,87 @@
             </div>
         </div>
     </div>
+
+    <!-- Add a modal for order completion success -->
+    <div class="order-complete-modal" id="orderCompleteModal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+            <h2>Order Completed!</h2>
+            <p>The order has been marked as completed and removed from your messages.</p>
+            <button class="ok-btn" id="orderCompleteOkBtn">OK</button>
+        </div>
+    </div>
+
+    <!-- Add styles for the modal -->
+    <style>
+        .order-complete-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .order-complete-modal.active {
+            opacity: 1;
+            visibility: visible;
+            display: flex;
+        }
+        .order-complete-modal .modal-content {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .order-complete-modal.active .modal-content {
+            transform: scale(1);
+        }
+        .order-complete-modal .modal-icon {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            animation: bounceIn 0.8s ease;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .order-complete-modal h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        .order-complete-modal p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        .order-complete-modal .ok-btn {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .order-complete-modal .ok-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+    </style>
 
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top" aria-label="Back to top">
@@ -1804,24 +1954,13 @@
                 // Add event listeners for complete buttons
                 document.querySelectorAll('.complete-order-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
-                        const orderId = this.getAttribute('data-id');
-                        if (confirm('Mark this order as complete?')) {
-                            fetch('delete_order.php', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                body: 'id=' + encodeURIComponent(orderId)
-                            })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    this.closest('.order-notification').remove();
-                                    updateMessagesBadge();
-                                } else {
-                                    alert(data.message || 'Failed to delete order.');
-                                }
-                            })
-                            .catch(() => alert('Failed to delete order.'));
-                        }
+                        // Only remove from UI, do not delete from DB
+                        this.closest('.order-notification').remove();
+                        updateMessagesBadge();
+                        // Show modal
+                        orderCompleteModal.classList.add('active');
+                        orderCompleteModal.style.opacity = 1;
+                        orderCompleteModal.style.visibility = 'visible';
                     });
                 });
             }
@@ -1876,6 +2015,28 @@
                         }
                         document.getElementById('messagesBadge').style.display = 'none';
                     });
+            });
+
+            // Add a modal for order completion success
+            const orderCompleteModal = document.createElement('div');
+            orderCompleteModal.className = 'order-complete-modal';
+            orderCompleteModal.style.display = 'none';
+            orderCompleteModal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+                    <h2>Order Completed!</h2>
+                    <p>The order has been marked as completed and removed from your messages.</p>
+                    <button class="ok-btn" id="orderCompleteOkBtn">OK</button>
+                </div>
+            `;
+            document.body.appendChild(orderCompleteModal);
+
+            // Modal OK button logic
+            const orderCompleteOkBtn = orderCompleteModal.querySelector('#orderCompleteOkBtn');
+            orderCompleteOkBtn.addEventListener('click', () => {
+                orderCompleteModal.classList.remove('active');
+                orderCompleteModal.style.opacity = 0;
+                orderCompleteModal.style.visibility = 'hidden';
             });
         });
     </script>
