@@ -746,6 +746,117 @@
             background: var(--primary-color);
             transform: translateY(-2px);
         }
+
+        /* Add styles for the modal */
+        .order-complete-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .order-complete-modal.active {
+            opacity: 1;
+            visibility: visible;
+            display: flex;
+        }
+        .order-complete-modal .modal-content {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .order-complete-modal.active .modal-content {
+            transform: scale(1);
+        }
+        .order-complete-modal .modal-icon {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            animation: bounceIn 0.8s ease;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .order-complete-modal h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        .order-complete-modal p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        .order-complete-modal .ok-btn {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .order-complete-modal .ok-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .back-to-top:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Add styles for Add Food Item and Add Category buttons */
+        .add-food-item button, .add-category button {
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--secondary-color) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.10);
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .add-food-item button:hover, .add-category button:hover {
+            background: var(--secondary-color);
+            color: #fff;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -1195,77 +1306,6 @@
         </div>
     </div>
 
-    <!-- Add styles for the modal -->
-    <style>
-        .order-complete-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        .order-complete-modal.active {
-            opacity: 1;
-            visibility: visible;
-            display: flex;
-        }
-        .order-complete-modal .modal-content {
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transform: scale(0.95);
-            transition: transform 0.3s;
-        }
-        .order-complete-modal.active .modal-content {
-            transform: scale(1);
-        }
-        .order-complete-modal .modal-icon {
-            font-size: 4rem;
-            color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            animation: bounceIn 0.8s ease;
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .order-complete-modal h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-        .order-complete-modal p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-        }
-        .order-complete-modal .ok-btn {
-            background: var(--bg-gradient);
-            color: white;
-            padding: 1rem 3rem;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .order-complete-modal .ok-btn:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
-        }
-    </style>
-
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
@@ -1283,10 +1323,7 @@
             { id: 3, name: 'Berry Blast', price: 8.49, description: 'Strawberry, blueberry, raspberry, blackberry & acai', category: 'Signature Juices', photo: 'https://via.placeholder.com/100', badge: '' }
         ];
 
-        let categories = [
-            { name: 'Signature Juices', description: 'Our most popular blends that customers keep coming back for' },
-            { name: 'Detox & Cleanses', description: 'Purify your system with our nutrient-packed detox blends' }
-        ];
+        let categories = [];
 
         // Admin Functionality
         document.addEventListener('DOMContentLoaded', () => {
@@ -1945,21 +1982,8 @@
                             <span style="float:right;color:#aaa;font-size:1.1rem;">${order.created_at}</span>
                         </div>
                         <div class="order-items"><strong>Ordered:</strong><ul>${order.items.map(item => `<li>${item.name} x${item.quantity}</li>`).join('')}</ul></div>
-                        <button class="complete-order-btn" data-id="${order.id}" style="margin-top:1rem;background:var(--primary-color);color:#fff;border:none;padding:0.7rem 2rem;border-radius:30px;font-size:1.1rem;cursor:pointer;">Complete</button>
                     `;
                     messagesSection.appendChild(card);
-                });
-                // Add event listeners for complete buttons
-                document.querySelectorAll('.complete-order-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        // Only remove from UI, do not delete from DB
-                        this.closest('.order-notification').remove();
-                        updateMessagesBadge();
-                        // Show modal
-                        orderCompleteModal.classList.add('active');
-                        orderCompleteModal.style.opacity = 1;
-                        orderCompleteModal.style.visibility = 'visible';
-                    });
                 });
             }
 
