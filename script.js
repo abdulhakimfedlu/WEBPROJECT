@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartCount = document.querySelector('.cart-count');
     const clearCartBtn = document.querySelector('.clear-cart');
     const checkoutBtn = document.querySelector('.checkout-btn');
+    const customerNameInput = document.getElementById('customer-name');
+    const tableNumberInput = document.getElementById('table-number');
+    const orderSuccessModal = document.getElementById('orderSuccessModal');
+    const okBtn = document.getElementById('okBtn');
     let cart = [];
 
     if (cartBtn && cartSidebar && cartOverlay && closeCart) {
@@ -105,49 +109,93 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cartTotal) cartTotal.textContent = `$${total.toFixed(2)}`;
             if (cartCount) cartCount.textContent = count;
 
-            document.querySelectorAll('.decrease').forEach(button => {
-                button.addEventListener('click', () => {
-                    const index = button.closest('.cart-item').querySelector('.remove-item').getAttribute('data-index');
-                    if (cart[index].quantity > 1) cart[index].quantity--;
-                    else cart.splice(index, 1);
-                    updateCart();
-                });
-            });
+            // Re-bind listeners for new cart items
+            bindCartItemButtons();
+        }
+        // Check button states after every cart update
+        checkButtonStates();
+    }
 
-            document.querySelectorAll('.increase').forEach(button => {
-                button.addEventListener('click', () => {
-                    const index = button.closest('.cart-item').querySelector('.remove-item').getAttribute('data-index');
-                    cart[index].quantity++;
-                    updateCart();
-                });
+    function bindCartItemButtons() {
+        document.querySelectorAll('.decrease').forEach(button => {
+            button.addEventListener('click', () => {
+                const index = button.closest('.cart-item').querySelector('.remove-item').getAttribute('data-index');
+                if (cart[index].quantity > 1) cart[index].quantity--;
+                else cart.splice(index, 1);
+                updateCart();
             });
+        });
 
-            document.querySelectorAll('.remove-item').forEach(button => {
-                button.addEventListener('click', () => {
-                    const index = button.getAttribute('data-index');
-                    cart.splice(index, 1);
-                    updateCart();
-                });
+        document.querySelectorAll('.increase').forEach(button => {
+            button.addEventListener('click', () => {
+                const index = button.closest('.cart-item').querySelector('.remove-item').getAttribute('data-index');
+                cart[index].quantity++;
+                updateCart();
             });
+        });
+
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', () => {
+                const index = button.getAttribute('data-index');
+                cart.splice(index, 1);
+                updateCart();
+            });
+        });
+    }
+
+    function checkButtonStates() {
+        const nameValid = customerNameInput && customerNameInput.value.trim() !== '';
+        const tableValid = tableNumberInput && tableNumberInput.value.trim() !== '';
+        const cartHasItems = cart.length > 0;
+
+        if (checkoutBtn) {
+            checkoutBtn.disabled = !(nameValid && tableValid && cartHasItems);
+        }
+        if (clearCartBtn) {
+            clearCartBtn.disabled = !cartHasItems;
         }
     }
+
+    // Add event listeners for the input fields
+    if (customerNameInput) customerNameInput.addEventListener('input', checkButtonStates);
+    if (tableNumberInput) tableNumberInput.addEventListener('input', checkButtonStates);
 
     // Clear Cart
     if (clearCartBtn) {
         clearCartBtn.addEventListener('click', () => {
             cart = [];
+            if(customerNameInput) customerNameInput.value = '';
+            if(tableNumberInput) tableNumberInput.value = '';
             updateCart();
         });
     }
 
-    // Checkout with Payment Modal
+    // Checkout
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
-            if (cart.length > 0) {
-                // Payment modal will handle the rest via updated script
-            } else {
-                alert('Your cart is empty!');
+            if (!checkoutBtn.disabled) {
+                if (orderSuccessModal) orderSuccessModal.classList.add('active');
             }
+        });
+    }
+
+    // OK button on success modal
+    if (okBtn) {
+        okBtn.addEventListener('click', () => {
+            // Hide modal
+            if (orderSuccessModal) orderSuccessModal.classList.remove('active');
+
+            // Close cart sidebar
+            if (cartSidebar && cartOverlay) {
+                cartSidebar.classList.remove('active');
+                cartOverlay.classList.remove('active');
+            }
+
+            // Clear cart, inputs, and update UI
+            cart = [];
+            if(customerNameInput) customerNameInput.value = '';
+            if(tableNumberInput) tableNumberInput.value = '';
+            updateCart();
         });
     }
 

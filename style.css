@@ -654,6 +654,86 @@ body {
   background: var(--dark-color);
 }
 
+/* Order Success Modal */
+.order-success-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1005; /* Higher than cart sidebar and overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.order-success-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.order-success-modal .modal-content {
+  background: white;
+  padding: 4rem;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.order-success-modal.active .modal-content {
+    transform: scale(1);
+}
+
+.order-success-modal .modal-icon {
+  font-size: 6rem;
+  color: var(--secondary-color);
+  margin-bottom: 2rem;
+  animation: bounceIn 0.8s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.order-success-modal h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--dark-color);
+}
+
+.order-success-modal p {
+  font-size: 1.6rem;
+  color: var(--text-light);
+  margin-bottom: 3rem;
+}
+
+.order-success-modal .ok-btn {
+  background: var(--bg-gradient);
+  color: white;
+  padding: 1.2rem 4rem;
+  border-radius: 50px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.order-success-modal .ok-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
 /* Menu Page Styles */
 .menu-hero {
   padding: 15rem 0 8rem;

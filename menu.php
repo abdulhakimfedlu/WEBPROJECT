@@ -142,6 +142,18 @@ function category_slug($name) {
     </div>
     <div class="cart-overlay"></div>
 
+    <!-- Order Success Modal -->
+    <div class="order-success-modal" id="orderSuccessModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Order Placed!</h2>
+            <p>Your order is on its way. Relax and have fun, we'll bring it to your table shortly!</p>
+            <button class="ok-btn" id="okBtn">OK</button>
+        </div>
+    </div>
+
     <!-- Cart Button -->
     <button class="cart-btn">
         <i class="fas fa-utensils"></i>
