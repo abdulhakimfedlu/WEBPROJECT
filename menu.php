@@ -1,3 +1,23 @@
+<?php
+require_once 'db_connect.php';
+$categories = [];
+$foods = [];
+$result = $conn->query("SELECT DISTINCT category FROM foods ORDER BY category");
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $categories[] = $row['category'];
+    }
+}
+$result = $conn->query("SELECT * FROM foods ORDER BY created_at DESC");
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $foods[] = $row;
+    }
+}
+function category_slug($name) {
+    return strtolower(preg_replace('/[^a-z0-9]+/', '-', trim($name)));
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,10 +66,12 @@
                 <h1>Our Premium <span>Juice Menu</span></h1>
                 <p>Explore our selection of cold-pressed, nutrient-rich juices crafted to energize, detoxify, and nourish your body.</p>
                 <div class="menu-filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All Juices</button>
-                    <button class="filter-btn" data-filter="detox">Detox</button>
-                    <button class="filter-btn" data-filter="energy">Energy</button>
-                    <button class="filter-btn" data-filter="immunity">Immunity</button>
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <?php foreach ($categories as $category): ?>
+                        <button class="filter-btn" data-filter="<?php echo category_slug($category); ?>">
+                            <?php echo htmlspecialchars($category); ?>
+                        </button>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="menu-hero-image" data-aos="fade-left">
@@ -59,78 +81,35 @@
     </section>
 
     <!-- Menu Section -->
-  <?php
-require_once 'db_connect.php';
-$categories = [];
-$foods = [];
-
-$result = $conn->query("SELECT DISTINCT category FROM foods ORDER BY category");
-while ($row = $result->fetch_assoc()) {
-    $categories[] = $row['category'];
-}
-
-$result = $conn->query("SELECT * FROM foods ORDER BY created_at DESC");
-while ($row = $result->fetch_assoc()) {
-    $foods[] = $row;
-}
-?>
-
-<section class="full-menu">
-    <div class="menu-container container">
-        <?php foreach ($categories as $category): ?>
-            <div class="menu-category" data-aos="fade-up">
-                <h2 class="category-title"><?php echo htmlspecialchars($category); ?></h2>
-                <p class="category-description">Explore our premium juices in the <?php echo htmlspecialchars($category); ?> category.</p>
-                <div class="menu-items">
-                    <?php foreach ($foods as $food): ?>
-                        <?php if ($food['category'] === $category): ?>
-                            <div class="menu-item" data-category="<?php echo htmlspecialchars(strtolower($category)); ?>">
-                                <div class="item-image">
-                                    <img src="<?php echo htmlspecialchars($food['image'] ?: 'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?auto=format&fit=crop&w=880&q=80'); ?>" alt="<?php echo htmlspecialchars($food['name']); ?>">
-                                    <?php if ($food['badge']): ?>
-                                        <div class="item-badge <?php echo htmlspecialchars(strtolower($food['badge'])); ?>"><?php echo htmlspecialchars($food['badge']); ?></div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="item-info">
-                                    <h3><?php echo htmlspecialchars($food['name']); ?></h3>
-                                    <p class="item-description"><?php echo htmlspecialchars($food['description']); ?></p>
-                                    <div class="item-footer">
-                                        <span class="item-price">$<?php echo number_format($food['price'], 2); ?></span>
-                                        <button class="add-to-cart" data-item="<?php echo htmlspecialchars($food['name']); ?>" data-price="<?php echo $food['price']; ?>">
-                                            <i class="fas fa-plus"></i> Order
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+    <section class="full-menu">
+        <div class="menu-container container">
+            <?php if (count($foods) > 0): ?>
+            <div class="menu-items-grid">
+            <?php foreach ($foods as $food): ?>
+                <div class="menu-item-card" data-category="<?php echo category_slug($food['category']); ?>">
+                    <div class="item-image">
+                        <img src="<?php echo htmlspecialchars($food['image'] ?: 'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?auto=format&fit=crop&w=880&q=80'); ?>" alt="<?php echo htmlspecialchars($food['name']); ?>">
+                        <?php if ($food['badge']): ?>
+                            <div class="item-badge <?php echo htmlspecialchars(strtolower($food['badge'])); ?>"><?php echo htmlspecialchars($food['badge']); ?></div>
                         <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</section>
-
-            <div class="menu-category" data-aos="fade-up">
-                <h2 class="category-title">Detox & Cleanses</h2>
-                <p class="category-description">Purify your system with our nutrient-packed detox blends</p>
-                <div class="menu-items">
-                    <div class="menu-item" data-category="detox">
-                        <div class="item-image">
-                            <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Deep Cleanse">
-                        </div>
-                        <div class="item-info">
-                            <h3>Deep Cleanse</h3>
-                            <p class="item-description">Beetroot, carrot, apple, lemon & ginger</p>
-                            <div class="item-footer">
-                                <span class="item-price">$7.49</span>
-                                <button class="add-to-cart" data-item="Deep Cleanse" data-price="7.49">
-                                    <i class="fas fa-plus"></i> Order
-                                </button>
-                            </div>
+                    </div>
+                    <div class="item-info">
+                        <h3><?php echo htmlspecialchars($food['name']); ?></h3>
+                        <p class="item-description"><?php echo htmlspecialchars($food['description']); ?></p>
+                        <div class="item-footer">
+                            <span class="item-price">$<?php echo number_format($food['price'], 2); ?></span>
+                            <button class="add-to-cart" data-item="<?php echo htmlspecialchars($food['name']); ?>" data-price="<?php echo $food['price']; ?>">
+                                <i class="fas fa-plus"></i> Order
+                            </button>
                         </div>
                     </div>
                 </div>
+            <?php endforeach; ?>
             </div>
+            <div class="no-items-message" style="display:none; text-align:center; color:#ff6b6b; font-size:1.3rem; margin-top:2rem;">No items in this category.</div>
+            <?php else: ?>
+            <div class="no-foods">No food items available. Please check back later!</div>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -140,38 +119,30 @@ while ($row = $result->fetch_assoc()) {
             <h3>Your Order</h3>
             <button class="close-cart"><i class="fas fa-times"></i></button>
         </div>
-        <div class="cart-items">
-            <!-- Cart items will be added here dynamically -->
-        </div>
+        <div class="cart-items"><!-- Cart items will be added here dynamically --></div>
         <div class="cart-total">
             <span>Total:</span>
             <span class="total-price">$0.00</span>
         </div>
+        <div class="cart-table-number" style="padding: 1rem 2rem; display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+                <label for="customer-name" style="font-weight: 600;">Enter Name</label>
+                <input type="text" id="customer-name" maxlength="50" placeholder="e.g. John Doe" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #eee; font-size: 1.2rem; margin-top: 0.5rem;" autocomplete="off">
+            </div>
+            <div>
+                <label for="table-number" style="font-weight: 600;">Enter Table Number</label>
+                <input type="text" id="table-number" maxlength="2" pattern="\d{2}" placeholder="e.g. 12" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #eee; font-size: 1.2rem; margin-top: 0.5rem;" autocomplete="off">
+            </div>
+        </div>
         <div class="cart-actions">
-            <button class="checkout-btn">Proceed to Checkout</button>
-            <button class="clear-cart">Clear Cart</button>
+            <button class="checkout-btn" disabled>Proceed to Checkout</button>
+            <button class="clear-cart" disabled>Clear Menu</button>
         </div>
+        <div class="order-message" style="display:none; text-align:center; margin: 2rem 0 0 0;"></div>
     </div>
-
-    <!-- Payment Modal -->
-    <div class="payment-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1002;">
-        <div class="payment-content" style="background: white; width: 400px; margin: 10% auto; padding: 2rem; border-radius: 10px; box-shadow: var(--box-shadow);">
-            <h3 style="text-align: center; margin-bottom: 1.5rem;">Chappay Payment</h3>
-            <p style="text-align: center; margin-bottom: 2rem;">Enter your payment code to complete the transaction.</p>
-            <form id="payment-form">
-                <div style="margin-bottom: 1.5rem;">
-                    <label style="display: block; margin-bottom: 0.5rem;">Payment Code</label>
-                    <input type="text" id="payment-code" style="width: 100%; padding: 1rem; border: 1px solid #eee; border-radius: 5px;" placeholder="e.g., CHAP1234" required>
-                </div>
-                <button type="submit" style="background: var(--bg-gradient); color: white; padding: 1rem 2rem; border: none; border-radius: 50px; width: 100%; cursor: pointer;">Pay Now</button>
-            </form>
-            <button class="close-payment" style="background: none; border: none; color: var(--text-light); font-size: 1.6rem; margin-top: 1rem; cursor: pointer; display: block; margin-left: auto;">Cancel</button>
-        </div>
-    </div>
-
     <div class="cart-overlay"></div>
 
-    <!-- Order Button -->
+    <!-- Cart Button -->
     <button class="cart-btn">
         <i class="fas fa-utensils"></i>
         <span class="cart-count">0</span>
@@ -226,64 +197,10 @@ while ($row = $result->fetch_assoc()) {
             </div>
         </div>
     </footer>
-
-    <!-- Back to Top Button -->
     <a href="#" class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </a>
-
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
-    <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const checkoutBtn = document.querySelector('.checkout-btn');
-    const paymentModal = document.querySelector('.payment-modal');
-    const closePaymentBtn = document.querySelector('.close-payment');
-    const paymentForm = document.getElementById('payment-form');
-
-    if (checkoutBtn && paymentModal && closePaymentBtn && paymentForm) {
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length > 0) {
-                paymentModal.style.display = 'block';
-            } else {
-                alert('Your cart is empty!');
-            }
-        });
-
-        closePaymentBtn.addEventListener('click', () => {
-            paymentModal.style.display = 'none';
-        });
-
-        paymentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const paymentCode = document.getElementById('payment-code').value;
-            if (paymentCode.toLowerCase() === 'chap1234') {
-                const formData = new FormData();
-                formData.append('action', 'place_order');
-                formData.append('cart', JSON.stringify(cart));
-                formData.append('total', cart.reduce((sum, item) => sum + item.price * item.quantity, 0));
-
-                fetch('order_process.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    if (data.success) {
-                        cart = [];
-                        updateCart();
-                        paymentModal.style.display = 'none';
-                        paymentForm.reset();
-                    }
-                })
-                .catch(() => alert('An error occurred.'));
-            } else {
-                alert('Invalid payment code.');
-            }
-        });
-    }
-});
-</script>
 </body>
 </html>

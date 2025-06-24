@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script>
+    // JS authentication check
+    if (localStorage.getItem('admin_logged_in') !== 'true') {
+        window.location.href = 'middleware.php';
+    }
+    // Logout handler
+    function adminLogout() {
+        localStorage.removeItem('admin_logged_in');
+        window.location.href = 'middleware.php';
+    }
+    </script>
     <style>
         /* Admin Panel Styles */
         .admin-panel {
@@ -597,6 +608,25 @@
                 padding: 2rem;
             }
         }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        .logout-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -611,7 +641,7 @@
                     <li><a href="#inventory"><i class="fas fa-boxes" aria-label="Inventory"></i><span>Inventory</span></a></li>
                     <li><a href="#settings"><i class="fas fa-cog" aria-label="Settings"></i><span>Settings</span></a></li>
                     <li><a href="#reports"><i class="fas fa-chart-bar" aria-label="Reports"></i><span>Reports</span></a></li>
-                    <li><a href="index.php"><i class="fas fa-sign-out-alt" aria-label="Logout"></i><span>Logout</span></a></li>
+                    <li><button class="logout-btn" onclick="adminLogout()"><i class="fas fa-sign-out-alt" aria-label="Logout"></i><span>Logout</span></button></li>
                 </ul>
             </div>
         </nav>
