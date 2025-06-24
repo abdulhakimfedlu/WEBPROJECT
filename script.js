@@ -48,20 +48,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Add to Cart
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', () => {
-            const itemName = button.getAttribute('data-item');
-            const itemPrice = parseFloat(button.getAttribute('data-price'));
-            const itemImg = button.closest('.menu-item').querySelector('.item-image img').src;
+    // Add to Cart (re-bind for dynamically rendered items)
+    function bindAddToCartButtons() {
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.onclick = function() {
+                const itemName = button.getAttribute('data-item');
+                const itemPrice = parseFloat(button.getAttribute('data-price'));
+                const itemImg = button.closest('.menu-item').querySelector('.item-image img').src;
 
-            const existingItem = cart.find(item => item.name === itemName);
-            if (existingItem) existingItem.quantity++;
-            else cart.push({ name: itemName, price: itemPrice, quantity: 1, img: itemImg });
+                const existingItem = cart.find(item => item.name === itemName);
+                if (existingItem) existingItem.quantity++;
+                else cart.push({ name: itemName, price: itemPrice, quantity: 1, img: itemImg });
 
-            updateCart();
+                updateCart();
+                // Open cart sidebar
+                if (cartSidebar && cartOverlay) {
+                    cartSidebar.classList.add('active');
+                    cartOverlay.classList.add('active');
+                }
+            };
         });
-    });
+    }
+    // Initial bind
+    bindAddToCartButtons();
+    // If menu items are filtered or re-rendered, call bindAddToCartButtons() again.
 
     // Update Cart Display
     function updateCart() {

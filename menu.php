@@ -84,9 +84,9 @@ function category_slug($name) {
     <section class="full-menu">
         <div class="menu-container container">
             <?php if (count($foods) > 0): ?>
-            <div class="menu-items-grid">
+            <div class="menu-items">
             <?php foreach ($foods as $food): ?>
-                <div class="menu-item-card" data-category="<?php echo category_slug($food['category']); ?>">
+                <div class="menu-item" data-category="<?php echo category_slug($food['category']); ?>">
                     <div class="item-image">
                         <img src="<?php echo htmlspecialchars($food['image'] ?: 'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?auto=format&fit=crop&w=880&q=80'); ?>" alt="<?php echo htmlspecialchars($food['name']); ?>">
                         <?php if ($food['badge']): ?>
