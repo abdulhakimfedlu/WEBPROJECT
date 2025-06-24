@@ -860,6 +860,14 @@
         .food-item-card .actions button:hover i {
             transform: scale(1.2);
         }
+
+        .feedback-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -1459,13 +1467,13 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        alert(data.message);
+                        showAdminMessage(data.message, data.success ? 'success' : 'error');
                         if (data.success) {
                             addFoodItemForm.reset();
                             loadFoods();
                         }
                     })
-                    .catch(() => alert('An error occurred.'));
+                    .catch(() => showAdminMessage('An error occurred.', 'error'));
                 });
             }
 
@@ -1534,7 +1542,6 @@
                                 <p>${employee.salary ? employee.salary + ' Birr' : ''}</p>
                                 <div class="actions">
                                     <button class="view-btn" data-id="${employee.id}" aria-label="View employee"><i class="fas fa-eye"></i></button>
-                                    <button class="edit-btn" data-id="${employee.id}" aria-label="Edit employee"><i class="fas fa-edit"></i></button>
                                     <button class="delete-btn" data-id="${employee.id}" aria-label="Delete employee"><i class="fas fa-trash"></i></button>
                                 </div>
                             `;
@@ -1544,7 +1551,7 @@
                         document.querySelectorAll('.employee-card .delete-btn').forEach(button => {
                             button.addEventListener('click', () => {
                                 const id = button.getAttribute('data-id');
-                                if (confirm('Are you sure?')) {
+                                customConfirm('Are you sure you want to delete this employee?', () => {
                                     const formData = new FormData();
                                     formData.append('action', 'delete_employee');
                                     formData.append('id', id);
@@ -1558,7 +1565,7 @@
                                         if (data.success) loadEmployees();
                                     })
                                     .catch(() => showAdminMessage('An error occurred.', 'error'));
-                                }
+                                });
                             });
                         });
                         // View
@@ -1576,27 +1583,6 @@
                                             document.getElementById('viewEmployeePhone').textContent = `Phone: ${emp.phone}`;
                                             document.getElementById('viewEmployeeSalary').textContent = `Salary: ${emp.salary} Birr`;
                                             viewEmployeeModal.style.display = 'flex';
-                                        }
-                                    });
-                            });
-                        });
-                        // Edit
-                        document.querySelectorAll('.employee-card .edit-btn').forEach(button => {
-                            button.addEventListener('click', () => {
-                                const id = button.getAttribute('data-id');
-                                fetch('get_employees.php')
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        const emp = data.find(e => e.id == id);
-                                        if (emp) {
-                                            document.getElementById('editEmployeeName').value = emp.name;
-                                            document.getElementById('editEmployeeRole').value = emp.role;
-                                            document.getElementById('editEmployeePhone').value = emp.phone;
-                                            document.getElementById('editEmployeeSalary').value = emp.salary;
-                                            editEmployeePhotoPreview.src = emp.image || 'https://via.placeholder.com/100';
-                                            editEmployeePhotoPreview.style.display = 'block';
-                                            editEmployeeForm.dataset.id = id;
-                                            editEmployeeModal.style.display = 'flex';
                                         }
                                     });
                             });
@@ -1630,7 +1616,7 @@
 
             // Delete Food
             window.deleteFood = function(id) {
-                if (confirm('Are you sure?')) {
+                customConfirm('Are you sure you want to delete this food item?', () => {
                     const formData = new FormData();
                     formData.append('action', 'delete_food');
                     formData.append('id', id);
@@ -1641,16 +1627,16 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        alert(data.message);
+                        showAdminMessage(data.message, data.success ? 'success' : 'error');
                         if (data.success) loadFoods();
                     })
-                    .catch(() => alert('An error occurred.'));
-                }
+                    .catch(() => showAdminMessage('An error occurred.', 'error'));
+                });
             };
 
             // Delete Employee
             window.deleteEmployee = function(id) {
-                if (confirm('Are you sure?')) {
+                customConfirm('Are you sure you want to delete this employee?', () => {
                     const formData = new FormData();
                     formData.append('action', 'delete_employee');
                     formData.append('id', id);
@@ -1665,7 +1651,7 @@
                         if (data.success) loadEmployees();
                     })
                     .catch(() => showAdminMessage('An error occurred.', 'error'));
-                }
+                });
             };
 
             // Photo Preview Handlers
@@ -1731,7 +1717,6 @@
                         <p>${emp.salary} Birr</p>
                         <div class="actions">
                             <button class="view-btn" data-name="${emp.name}" aria-label="View employee"><i class="fas fa-eye"></i></button>
-                            <button class="edit-btn" data-name="${emp.name}" aria-label="Edit employee"><i class="fas fa-edit"></i></button>
                             <button class="delete-btn" data-name="${emp.name}" aria-label="Delete employee"><i class="fas fa-trash"></i></button>
                         </div>
                     `;
@@ -1860,20 +1845,37 @@
 
             editEmployeeForm.addEventListener('submit', e => {
                 e.preventDefault();
+                const id = editEmployeeForm.dataset.id;
                 const name = document.getElementById('editEmployeeName').value;
                 const role = document.getElementById('editEmployeeRole').value;
                 const phone = document.getElementById('editEmployeePhone').value;
                 const salary = parseInt(document.getElementById('editEmployeeSalary').value);
                 const photo = editEmployeePhotoPreview.src || 'https://via.placeholder.com/100';
-                const oldName = editEmployeeForm.dataset.name;
 
-                employees = employees.map(emp => 
-                    emp.name === oldName ? { name, role, phone, salary, photo } : emp
-                );
-                renderEmployees();
-                editEmployeeModal.style.display = 'none';
-                editEmployeeForm.reset();
-                editEmployeePhotoPreview.style.display = 'none';
+                const formData = new FormData();
+                formData.append('action', 'edit_employee');
+                formData.append('id', id);
+                formData.append('name', name);
+                formData.append('role', role);
+                formData.append('phone', phone);
+                formData.append('salary', salary);
+                formData.append('image', photo);
+
+                fetch('admin_process.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    showAdminMessage(data.message, data.success ? 'success' : 'error');
+                    if (data.success) {
+                        editEmployeeModal.style.display = 'none';
+                        editEmployeeForm.reset();
+                        editEmployeePhotoPreview.style.display = 'none';
+                        loadEmployees();
+                    }
+                })
+                .catch(() => showAdminMessage('An error occurred.', 'error'));
             });
 
             closeViewEmployeeModal.addEventListener('click', () => {
@@ -1886,21 +1888,6 @@
                         const name = button.dataset.name;
                         employees = employees.filter(emp => emp.name !== name);
                         renderEmployees();
-                    });
-                });
-
-                document.querySelectorAll('.employee-card .edit-btn').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const name = button.dataset.name;
-                        const emp = employees.find(e => e.name === name);
-                        document.getElementById('editEmployeeName').value = emp.name;
-                        document.getElementById('editEmployeeRole').value = emp.role;
-                        document.getElementById('editEmployeePhone').value = emp.phone;
-                        document.getElementById('editEmployeeSalary').value = emp.salary;
-                        editEmployeePhotoPreview.src = emp.photo;
-                        editEmployeePhotoPreview.style.display = 'block';
-                        editEmployeeForm.dataset.name = name;
-                        editEmployeeModal.style.display = 'flex';
                     });
                 });
 
@@ -1980,8 +1967,10 @@
                 document.querySelectorAll('.food-item-card .delete-btn').forEach(button => {
                     button.addEventListener('click', () => {
                         const id = parseInt(button.dataset.id);
-                        foodItems = foodItems.filter(item => item.id !== id);
-                        renderFoodItems();
+                        customConfirm('Are you sure you want to delete this food item?', () => {
+                            foodItems = foodItems.filter(item => item.id !== id);
+                            renderFoodItems();
+                        });
                     });
                 });
 
@@ -2068,10 +2057,12 @@
                 document.querySelectorAll('.category-card .delete-btn').forEach(button => {
                     button.addEventListener('click', () => {
                         const name = button.dataset.name;
-                        categories = categories.filter(cat => cat.name !== name);
-                        foodItems = foodItems.filter(item => item.category !== name);
-                        renderCategories();
-                        renderFoodItems();
+                        customConfirm('Are you sure you want to delete this category?', () => {
+                            categories = categories.filter(cat => cat.name !== name);
+                            foodItems = foodItems.filter(item => item.category !== name);
+                            renderCategories();
+                            renderFoodItems();
+                        });
                     });
                 });
 
@@ -2215,7 +2206,64 @@
                 adminMessage.style.padding = '1.2rem 0';
                 setTimeout(() => { adminMessage.style.display = 'none'; }, 3500);
             }
+
+            function loadFeedback() {
+                fetch('get_feedback.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const feedbackList = document.getElementById('feedbackList');
+                        feedbackList.innerHTML = '';
+                        if (data.length === 0) {
+                            feedbackList.innerHTML = '<div style="color:#aaa;">No feedback yet.</div>';
+                            return;
+                        }
+                        data.forEach(item => {
+                            const card = document.createElement('div');
+                            card.classList.add('feedback-card');
+                            card.innerHTML = `
+                                <strong>${item.name}</strong> <span style="color:#888;">(${item.email})</span>
+                                <div style="margin:0.5rem 0;">${item.message}</div>
+                                <div style="color:#aaa;font-size:0.9rem;">${item.created_at}</div>
+                            `;
+                            feedbackList.appendChild(card);
+                        });
+                    });
+            }
+            // Call this on page load in admin panel:
+            loadFeedback();
         });
+
+        // Add a reusable confirmation modal to the HTML body if not present
+        if (!document.getElementById('customConfirmModal')) {
+            const modal = document.createElement('div');
+            modal.id = 'customConfirmModal';
+            modal.style.display = 'none';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100vw';
+            modal.style.height = '100vh';
+            modal.style.background = 'rgba(0,0,0,0.5)';
+            modal.style.zIndex = '2001';
+            modal.innerHTML = `
+                <div style="background:white;padding:2rem 2.5rem;border-radius:15px;max-width:350px;width:90%;margin:10% auto;text-align:center;box-shadow:0 8px 32px rgba(80,80,80,0.13);">
+                    <div id="customConfirmMessage" style="font-size:1.3rem;margin-bottom:2rem;">Are you sure?</div>
+                    <button id="customConfirmYes" style="background:var(--primary-color);color:white;padding:0.7rem 2.2rem;border:none;border-radius:50px;font-size:1.1rem;margin-right:1rem;">Yes</button>
+                    <button id="customConfirmNo" style="background:#eee;color:#333;padding:0.7rem 2.2rem;border:none;border-radius:50px;font-size:1.1rem;">Cancel</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        function customConfirm(message, onConfirm) {
+            const modal = document.getElementById('customConfirmModal');
+            const msg = document.getElementById('customConfirmMessage');
+            const yes = document.getElementById('customConfirmYes');
+            const no = document.getElementById('customConfirmNo');
+            msg.textContent = message;
+            modal.style.display = 'flex';
+            yes.onclick = () => { modal.style.display = 'none'; onConfirm(); };
+            no.onclick = () => { modal.style.display = 'none'; };
+        }
     </script>
 </body>
 </html>

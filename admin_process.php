@@ -68,6 +68,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response['message'] = 'Failed to delete employee.';
         }
         $stmt->close();
+    } elseif ($action === 'edit_employee') {
+        $id = intval($_POST['id']);
+        $name = trim($_POST['name']);
+        $role = trim($_POST['role']);
+        $phone = trim($_POST['phone']);
+        $salary = floatval($_POST['salary']);
+        $image = trim($_POST['image']);
+
+        if (empty($name) || empty($role)) {
+            $response['message'] = 'Name and role are required.';
+        } else {
+            $stmt = $conn->prepare("UPDATE employees SET name=?, role=?, phone=?, salary=?, image=? WHERE id=?");
+            $stmt->bind_param("ssssdi", $name, $role, $phone, $salary, $image, $id);
+            if ($stmt->execute()) {
+                $response['success'] = true;
+                $response['message'] = 'Employee updated successfully.';
+            } else {
+                $response['message'] = 'Failed to update employee.';
+            }
+            $stmt->close();
+        }
     }
 } else {
     $response['message'] = 'Invalid request method.';

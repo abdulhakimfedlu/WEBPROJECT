@@ -195,11 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.success) {
                         if (orderSuccessModal) orderSuccessModal.classList.add('active');
                     } else {
-                        alert(data.message || 'Failed to save order.');
+                        showAdminMessage(data.message || 'Failed to save order.', 'error');
                     }
                 })
                 .catch(() => {
-                    alert('Failed to save order.');
+                    showAdminMessage('Failed to save order.', 'error');
                 });
             }
         });
@@ -303,4 +303,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize AOS
     if (typeof AOS !== 'undefined') AOS.init({ duration: 800, once: true, offset: 100 });
+
+    // Add a showAdminMessage function if not present
+    function showAdminMessage(msg, type = 'info') {
+        let adminMessage = document.getElementById('adminMessage');
+        if (!adminMessage) {
+            adminMessage = document.createElement('div');
+            adminMessage.id = 'adminMessage';
+            adminMessage.style.position = 'fixed';
+            adminMessage.style.top = '0';
+            adminMessage.style.left = '0';
+            adminMessage.style.width = '100%';
+            adminMessage.style.zIndex = '9999';
+            adminMessage.style.textAlign = 'center';
+            adminMessage.style.fontWeight = '600';
+            adminMessage.style.padding = '1.2rem 0';
+            document.body.prepend(adminMessage);
+        }
+        adminMessage.textContent = msg;
+        adminMessage.style.display = 'block';
+        adminMessage.style.background = type === 'error' ? 'rgba(255,107,107,0.12)' : 'rgba(78,205,196,0.10)';
+        adminMessage.style.color = type === 'error' ? '#ff6b6b' : '#4ecdc4';
+        setTimeout(() => { adminMessage.style.display = 'none'; }, 3500);
+    }
 });
