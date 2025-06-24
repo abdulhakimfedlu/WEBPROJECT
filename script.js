@@ -174,7 +174,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
             if (!checkoutBtn.disabled) {
-                if (orderSuccessModal) orderSuccessModal.classList.add('active');
+                // Gather order data
+                const customerName = customerNameInput.value.trim();
+                const tableNumber = tableNumberInput.value.trim();
+                const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                const items = cart.map(item => ({ name: item.name, price: item.price, quantity: item.quantity }));
+                // Send to save_order.php
+                fetch('save_order.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customer_name: customerName,
+                        table_number: tableNumber,
+                        total_amount: totalAmount,
+                        items: items
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        if (orderSuccessModal) orderSuccessModal.classList.add('active');
+                    } else {
+                        alert(data.message || 'Failed to save order.');
+                    }
+                })
+                .catch(() => {
+                    alert('Failed to save order.');
+                });
             }
         });
     }
