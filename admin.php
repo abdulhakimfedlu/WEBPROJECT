@@ -1275,11 +1275,7 @@
     <script src="script.js"></script>
     <script>
         // Simulated Data Storage
-        let employees = [
-            { name: 'Abel Kebede', role: 'manager', phone: '+25190101745', salary: 7000, photo: 'https://via.placeholder.com/100' },
-            { name: 'Nahom Girum', role: 'waiter', phone: '+251987654321', salary: 123, photo: 'https://via.placeholder.com/100' },
-            { name: 'Martha Tadese', role: 'waiter', phone: '+251123456789', salary: 12, photo: 'https://via.placeholder.com/100' }
-        ];
+        let employees = [];
 
         let foodItems = [
             { id: 1, name: 'Tropical Sunrise', price: 7.99, description: 'Mango, pineapple, orange & passionfruit with a hint of turmeric', category: 'Signature Juices', photo: 'https://via.placeholder.com/100', badge: 'Bestseller' },
@@ -1375,13 +1371,15 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        alert(data.message);
                         if (data.success) {
                             addEmployeeForm.reset();
                             loadEmployees();
+                            showAdminMessage('Employee added successfully!', 'success');
+                        } else {
+                            showAdminMessage(data.message || 'An error occurred.', 'error');
                         }
                     })
-                    .catch(() => alert('An error occurred.'));
+                    .catch(() => showAdminMessage('An error occurred.', 'error'));
                 });
             }
 
@@ -2038,6 +2036,22 @@
                 orderCompleteModal.style.opacity = 0;
                 orderCompleteModal.style.visibility = 'hidden';
             });
+
+            // Add a UI message div for employee actions
+            const adminMessage = document.createElement('div');
+            adminMessage.id = 'adminMessage';
+            adminMessage.style.display = 'none';
+            document.body.prepend(adminMessage);
+            function showAdminMessage(msg, type = 'info') {
+                adminMessage.textContent = msg;
+                adminMessage.style.display = 'block';
+                adminMessage.style.background = type === 'error' ? 'rgba(255,107,107,0.12)' : 'rgba(78,205,196,0.10)';
+                adminMessage.style.color = type === 'error' ? '#ff6b6b' : '#4ecdc4';
+                adminMessage.style.fontWeight = '600';
+                adminMessage.style.textAlign = 'center';
+                adminMessage.style.padding = '1.2rem 0';
+                setTimeout(() => { adminMessage.style.display = 'none'; }, 3500);
+            }
         });
     </script>
 </body>
