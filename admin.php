@@ -1797,8 +1797,32 @@
                             <span style="float:right;color:#aaa;font-size:1.1rem;">${order.created_at}</span>
                         </div>
                         <div class="order-items"><strong>Ordered:</strong><ul>${order.items.map(item => `<li>${item.name} x${item.quantity}</li>`).join('')}</ul></div>
+                        <button class="complete-order-btn" data-id="${order.id}" style="margin-top:1rem;background:var(--primary-color);color:#fff;border:none;padding:0.7rem 2rem;border-radius:30px;font-size:1.1rem;cursor:pointer;">Complete</button>
                     `;
                     messagesSection.appendChild(card);
+                });
+                // Add event listeners for complete buttons
+                document.querySelectorAll('.complete-order-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const orderId = this.getAttribute('data-id');
+                        if (confirm('Mark this order as complete?')) {
+                            fetch('delete_order.php', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: 'id=' + encodeURIComponent(orderId)
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    this.closest('.order-notification').remove();
+                                    updateMessagesBadge();
+                                } else {
+                                    alert(data.message || 'Failed to delete order.');
+                                }
+                            })
+                            .catch(() => alert('Failed to delete order.'));
+                        }
+                    });
                 });
             }
 
