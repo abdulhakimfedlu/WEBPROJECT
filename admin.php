@@ -747,99 +747,54 @@
             transform: translateY(-2px);
         }
 
-        /* Add styles for the modal */
-        .order-complete-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        .order-complete-modal.active {
-            opacity: 1;
-            visibility: visible;
-            display: flex;
-        }
-        .order-complete-modal .modal-content {
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transform: scale(0.95);
-            transition: transform 0.3s;
-        }
-        .order-complete-modal.active .modal-content {
-            transform: scale(1);
-        }
-        .order-complete-modal .modal-icon {
-            font-size: 4rem;
-            color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            animation: bounceIn 0.8s ease;
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .order-complete-modal h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--dark-color);
-        }
-        .order-complete-modal p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-        }
-        .order-complete-modal .ok-btn {
-            background: var(--bg-gradient);
-            color: white;
-            padding: 1rem 3rem;
+        /* Add/Update modern button styles for food and category actions */
+        .food-item-card .actions button, .category-card .actions button {
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--secondary-color) 100%);
+            color: #fff;
+            border: none;
             border-radius: 50px;
+            padding: 0.7rem 1.5rem;
             font-size: 1.2rem;
-            font-weight: 600;
-            border: none;
+            font-weight: 700;
+            margin: 0 0.2rem;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.10);
+            transition: background 0.2s, transform 0.2s;
             cursor: pointer;
-            transition: var(--transition);
-        }
-        .order-complete-modal .ok-btn:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: background 0.3s;
         }
-        .back-to-top:hover {
+        .food-item-card .actions button:hover, .category-card .actions button:hover {
             background: var(--secondary-color);
+            color: #fff;
+            transform: scale(1.08);
         }
 
-        /* Add styles for Add Food Item and Add Category buttons */
-        .add-food-item button, .add-category button {
+        /* Add/Update modern button styles for employee actions */
+        .employee-card .actions button {
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--secondary-color) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 0.2rem;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.10);
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .employee-card .actions button:hover {
+            background: var(--secondary-color);
+            color: #fff;
+            transform: scale(1.08);
+        }
+
+        /* Add/Update modern style for Add Category button */
+        .add-category button {
             background: linear-gradient(90deg, var(--primary-color) 60%, var(--secondary-color) 100%);
             color: #fff;
             border: none;
@@ -852,10 +807,58 @@
             transition: background 0.2s, transform 0.2s;
             cursor: pointer;
         }
-        .add-food-item button:hover, .add-category button:hover {
+        .add-category button:hover {
             background: var(--secondary-color);
             color: #fff;
             transform: scale(1.05);
+        }
+
+        /* Add/Update modern style for Add Food Item button and food item actions */
+        .add-food-item button {
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--secondary-color) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.10);
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .add-food-item button:hover {
+            background: var(--secondary-color);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .food-item-card .actions button {
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--secondary-color) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0.2rem;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.10);
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .food-item-card .actions button i {
+            font-size: 1.7rem;
+            transition: transform 0.2s;
+        }
+        .food-item-card .actions button:hover {
+            background: var(--secondary-color);
+            color: #fff;
+            transform: scale(1.08);
+        }
+        .food-item-card .actions button:hover i {
+            transform: scale(1.2);
         }
     </style>
 </head>
@@ -1306,6 +1309,77 @@
         </div>
     </div>
 
+    <!-- Add styles for the modal -->
+    <style>
+        .order-complete-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .order-complete-modal.active {
+            opacity: 1;
+            visibility: visible;
+            display: flex;
+        }
+        .order-complete-modal .modal-content {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .order-complete-modal.active .modal-content {
+            transform: scale(1);
+        }
+        .order-complete-modal .modal-icon {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            animation: bounceIn 0.8s ease;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .order-complete-modal h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        .order-complete-modal p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        .order-complete-modal .ok-btn {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .order-complete-modal .ok-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+    </style>
+
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
@@ -1453,12 +1527,79 @@
                             const employeeCard = document.createElement('div');
                             employeeCard.classList.add('employee-card');
                             employeeCard.innerHTML = `
+                                <img src="${employee.image || 'https://via.placeholder.com/100'}" alt="${employee.name}">
                                 <h3>${employee.name}</h3>
-                                <p>Role: ${employee.role}</p>
-                                ${employee.image ? `<img src="${employee.image}" alt="${employee.name}" style="width:100px;">` : ''}
-                                <button onclick="deleteEmployee(${employee.id})">Delete</button>
+                                <p>${employee.role.charAt(0).toUpperCase() + employee.role.slice(1)}</p>
+                                <p>${employee.phone || ''}</p>
+                                <p>${employee.salary ? employee.salary + ' Birr' : ''}</p>
+                                <div class="actions">
+                                    <button class="view-btn" data-id="${employee.id}" aria-label="View employee"><i class="fas fa-eye"></i></button>
+                                    <button class="edit-btn" data-id="${employee.id}" aria-label="Edit employee"><i class="fas fa-edit"></i></button>
+                                    <button class="delete-btn" data-id="${employee.id}" aria-label="Delete employee"><i class="fas fa-trash"></i></button>
+                                </div>
                             `;
                             employeeList.appendChild(employeeCard);
+                        });
+                        // Delete
+                        document.querySelectorAll('.employee-card .delete-btn').forEach(button => {
+                            button.addEventListener('click', () => {
+                                const id = button.getAttribute('data-id');
+                                if (confirm('Are you sure?')) {
+                                    const formData = new FormData();
+                                    formData.append('action', 'delete_employee');
+                                    formData.append('id', id);
+                                    fetch('admin_process.php', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        showAdminMessage(data.message, data.success ? 'success' : 'error');
+                                        if (data.success) loadEmployees();
+                                    })
+                                    .catch(() => showAdminMessage('An error occurred.', 'error'));
+                                }
+                            });
+                        });
+                        // View
+                        document.querySelectorAll('.employee-card .view-btn').forEach(button => {
+                            button.addEventListener('click', () => {
+                                const id = button.getAttribute('data-id');
+                                fetch('get_employees.php')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const emp = data.find(e => e.id == id);
+                                        if (emp) {
+                                            document.getElementById('viewEmployeePhoto').src = emp.image || 'https://via.placeholder.com/100';
+                                            document.getElementById('viewEmployeeName').textContent = `Name: ${emp.name}`;
+                                            document.getElementById('viewEmployeeRole').textContent = `Role: ${emp.role.charAt(0).toUpperCase() + emp.role.slice(1)}`;
+                                            document.getElementById('viewEmployeePhone').textContent = `Phone: ${emp.phone}`;
+                                            document.getElementById('viewEmployeeSalary').textContent = `Salary: ${emp.salary} Birr`;
+                                            viewEmployeeModal.style.display = 'flex';
+                                        }
+                                    });
+                            });
+                        });
+                        // Edit
+                        document.querySelectorAll('.employee-card .edit-btn').forEach(button => {
+                            button.addEventListener('click', () => {
+                                const id = button.getAttribute('data-id');
+                                fetch('get_employees.php')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const emp = data.find(e => e.id == id);
+                                        if (emp) {
+                                            document.getElementById('editEmployeeName').value = emp.name;
+                                            document.getElementById('editEmployeeRole').value = emp.role;
+                                            document.getElementById('editEmployeePhone').value = emp.phone;
+                                            document.getElementById('editEmployeeSalary').value = emp.salary;
+                                            editEmployeePhotoPreview.src = emp.image || 'https://via.placeholder.com/100';
+                                            editEmployeePhotoPreview.style.display = 'block';
+                                            editEmployeeForm.dataset.id = id;
+                                            editEmployeeModal.style.display = 'flex';
+                                        }
+                                    });
+                            });
                         });
                     });
             }
@@ -1520,10 +1661,10 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        alert(data.message);
+                        showAdminMessage(data.message, data.success ? 'success' : 'error');
                         if (data.success) loadEmployees();
                     })
-                    .catch(() => alert('An error occurred.'));
+                    .catch(() => showAdminMessage('An error occurred.', 'error'));
                 }
             };
 
@@ -1611,7 +1752,6 @@
                         <p>${item.category}</p>
                         ${item.badge ? `<div class="item-badge ${item.badge.toLowerCase()}">${item.badge}</div>` : ''}
                         <div class="actions">
-                            <button class="view-btn" data-id="${item.id}" aria-label="View item"><i class="fas fa-eye"></i></button>
                             <button class="edit-btn" data-id="${item.id}" aria-label="Edit item"><i class="fas fa-edit"></i></button>
                             <button class="delete-btn" data-id="${item.id}" aria-label="Delete item"><i class="fas fa-trash"></i></button>
                         </div>
@@ -1634,7 +1774,6 @@
                         <h3>${category.name}</h3>
                         <p>${category.description}</p>
                         <div class="actions">
-                            <button class="view-btn" data-name="${category.name}" aria-label="View category"><i class="fas fa-eye"></i></button>
                             <button class="edit-btn" data-name="${category.name}" aria-label="Edit"><i class="fas fa-edit"></i></button>
                             <button class="delete-btn" data-name="${category.name}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
                         </div>
