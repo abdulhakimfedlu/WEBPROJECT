@@ -64,13 +64,13 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h4>Visit Us</h4>
-                            <p>123 Juice Street, Beverage City</p>
+                            <p>Addis Ababa, Ethiopia</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="contact-hero-image" data-aos="fade-left">
-                <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Juice Bar">
+                <img src="images/contact.jpg" alt="Juice Bar">
             </div>
         </div>
     </section>
@@ -156,38 +156,38 @@
             <div class="location-cards">
                 <div class="location-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="location-image">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Zefmesh Grand Mall megenagna">
+                        <img src="images/zefmesh.jpg" alt="Zefmesh Grand Mall megenagna">
                     </div>
                     <div class="location-info">
                         <h3>Zefmesh Grand Mall megenagna</h3>
                         <p>Experience our premium juices in the heart of the city at Zefmesh Grand Mall.</p>
                         <p><i class="fas fa-phone"></i> 0939900633</p>
                         <p><i class="fas fa-envelope"></i> abduJabez@gmail.com</p>
-                        <a href="#" class="location-btn">Get Directions</a>
+                        <a href="https://mapcarta.com/W207342682" class="location-btn" target="_blank">Get Directions</a>
                     </div>
                 </div>
                 <div class="location-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="location-image">
-                        <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ambasadar 4 killo">
+                        <img src="images/amnassador.webp" alt="Ambasadar 4 killo">
                     </div>
                     <div class="location-info">
                         <h3>Ambasadar 4 killo</h3>
                         <p>Visit our flagship store at Ambasadar 4 killo for the ultimate juice experience.</p>
                         <p><i class="fas fa-phone"></i> 0939900633</p>
                         <p><i class="fas fa-envelope"></i> abduJabez@gmail.com</p>
-                        <a href="#" class="location-btn">Get Directions</a>
+                        <a href="https://www.google.com/maps/place/Merkato/@9.0331718,38.7144255,13.77z/data=!4m14!1m7!3m6!1s0x164b8565d4a30387:0x1cf0bebcc87aa5b2!2sShola+Market!8m2!3d9.0223515!4d38.7945519!16s%2Fg%2F11g_242lw!3m5!1s0x164b85e2aff5be9f:0xf3c31acfb90e54e3!8m2!3d9.0312054!4d38.7381822!16zL20vMGJ4NTd5?entry=ttu&g_ep=EgoyMDI1MDYyMi4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank">Get Directions</a>
                     </div>
                 </div>
                 <div class="location-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="location-image">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Handmade shola">
+                        <img src="images/handmade.jpg" alt="Handmade shola">
                     </div>
                     <div class="location-info">
                         <h3>Handmade shola</h3>
                         <p>Discover our artisanal juices at Handmade shola location.</p>
                         <p><i class="fas fa-phone"></i> 0939900633</p>
                         <p><i class="fas fa-envelope"></i> abduJabez@gmail.com</p>
-                        <a href="#" class="location-btn">Get Directions</a>
+                        <a href="https://www.google.com/maps/place/Shola+Market/@9.0173734,38.7853764,14.73z/data=!4m6!3m5!1s0x164b8565d4a30387:0x1cf0bebcc87aa5b2!8m2!3d9.0223515!4d38.7945519!16s%2Fg%2F11g_242lw?entry=ttu&g_ep=EgoyMDI1MDYyMi4wIKXMDSoASAFQAw%3D%3D" class="location-btn" target="_blank">Get Directions</a>
                     </div>
                 </div>
             </div>

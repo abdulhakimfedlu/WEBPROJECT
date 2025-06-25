@@ -974,8 +974,13 @@
                 <div class="admin-header">
                     <h1>Inventory Management</h1>
                 </div>
+                <div class="inventory-controls" style="margin-bottom: 2rem;">
+                    <button id="addInventoryBtn" class="submit-btn" style="background: var(--bg-gradient); color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1.4rem; cursor: pointer;">
+                        <i class="fas fa-plus" aria-label="Add"></i> Add Inventory Item
+                    </button>
+                </div>
                 <div class="inventory-table" data-aos="fade-up">
-                    <table>
+                    <table id="inventoryTable">
                         <thead>
                             <tr>
                                 <th>Item</th>
@@ -985,28 +990,8 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Organic Apples</td>
-                                <td>150</td>
-                                <td>kg</td>
-                                <td>In Stock</td>
-                                <td><button class="edit-btn" aria-label="Edit item"><i class="fas fa-edit"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Kale</td>
-                                <td>50</td>
-                                <td>kg</td>
-                                <td>Low Stock</td>
-                                <td><button class="edit-btn" aria-label="Edit item"><i class="fas fa-edit"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Mangoes</td>
-                                <td>200</td>
-                                <td>kg</td>
-                                <td>In Stock</td>
-                                <td><button class="edit-btn" aria-label="Edit item"><i class="fas fa-edit"></i></button></td>
-                            </tr>
+                        <tbody id="inventoryTableBody">
+                            <!-- Inventory items will be populated here -->
                         </tbody>
                     </table>
                 </div>
