@@ -194,15 +194,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(data => {
                     if (data.success) {
                         if (orderSuccessModal) orderSuccessModal.classList.add('active');
+                        // Reset cart and inputs
+                        cart = [];
+                        if(customerNameInput) customerNameInput.value = '';
+                        if(tableNumberInput) tableNumberInput.value = '';
+                        updateCart();
                     } else {
-                        showAdminMessage(data.message || 'Failed to save order.', 'error');
+                        showOrderError(data.message || 'Failed to save order.');
                     }
                 })
                 .catch(() => {
-                    showAdminMessage('Failed to save order.', 'error');
+                    showOrderError('Failed to save order. Please try again.');
                 });
             }
         });
+    }
+
+    function showOrderError(message) {
+        let msgDiv = document.querySelector('.order-message');
+        if (!msgDiv) {
+            msgDiv = document.createElement('div');
+            msgDiv.className = 'order-message';
+            cartSidebar.appendChild(msgDiv);
+        }
+        msgDiv.textContent = message;
+        msgDiv.style.display = 'block';
+        msgDiv.style.color = '#ff6b6b';
+        setTimeout(() => { msgDiv.style.display = 'none'; }, 4000);
     }
 
     // OK button on success modal

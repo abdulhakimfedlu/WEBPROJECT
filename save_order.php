@@ -22,45 +22,50 @@ if (empty($customer_name) || empty($table_number) || $total_amount <= 0 || count
     exit;
 }
 
-// Insert order
-$stmt = $conn->prepare("INSERT INTO orders (customer_name, table_number, total_amount) VALUES (?, ?, ?)");
-$stmt->bind_param("ssd", $customer_name, $table_number, $total_amount);
-if ($stmt->execute()) {
-    $order_id = $stmt->insert_id;
-    $stmt->close();
-    // Insert order items
-    $success = true;
-    foreach ($items as $item) {
-        $food_name = $item['name'];
-        $quantity = intval($item['quantity']);
-        $price = floatval($item['price']);
-        // Get food_id by name
-        $food_id = null;
-        $food_stmt = $conn->prepare("SELECT id FROM foods WHERE name = ? LIMIT 1");
-        $food_stmt->bind_param("s", $food_name);
-        $food_stmt->execute();
-        $food_stmt->bind_result($food_id);
-        $food_stmt->fetch();
-        $food_stmt->close();
-        if ($food_id) {
-            $item_stmt = $conn->prepare("INSERT INTO order_items (order_id, food_id, quantity, price) VALUES (?, ?, ?, ?)");
-            $item_stmt->bind_param("iiid", $order_id, $food_id, $quantity, $price);
-            if (!$item_stmt->execute()) {
+try {
+    // Insert order
+    $stmt = $conn->prepare("INSERT INTO orders (customer_name, table_number, total_amount) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssd", $customer_name, $table_number, $total_amount);
+    if ($stmt->execute()) {
+        $order_id = $stmt->insert_id;
+        $stmt->close();
+        // Insert order items
+        $success = true;
+        foreach ($items as $item) {
+            $food_name = $item['name'];
+            $quantity = intval($item['quantity']);
+            $price = floatval($item['price']);
+            // Get food_id by name
+            $food_id = null;
+            $food_stmt = $conn->prepare("SELECT id FROM foods WHERE name = ? LIMIT 1");
+            $food_stmt->bind_param("s", $food_name);
+            $food_stmt->execute();
+            $food_stmt->bind_result($food_id);
+            $food_stmt->fetch();
+            $food_stmt->close();
+            if ($food_id) {
+                $item_stmt = $conn->prepare("INSERT INTO order_items (order_id, food_id, quantity, price) VALUES (?, ?, ?, ?)");
+                $item_stmt->bind_param("iiid", $order_id, $food_id, $quantity, $price);
+                if (!$item_stmt->execute()) {
+                    $success = false;
+                }
+                $item_stmt->close();
+            } else {
                 $success = false;
+                $response['message'] = 'One or more food items not found.';
             }
-            $item_stmt->close();
-        } else {
-            $success = false;
         }
-    }
-    if ($success) {
-        $response['success'] = true;
-        $response['message'] = 'Order saved successfully.';
+        if ($success) {
+            $response['success'] = true;
+            $response['message'] = 'Order saved successfully.';
+        } else {
+            $response['message'] = $response['message'] ?: 'Order saved, but some items failed.';
+        }
     } else {
-        $response['message'] = 'Order saved, but some items failed.';
+        $response['message'] = 'Failed to save order.';
     }
-} else {
-    $response['message'] = 'Failed to save order.';
+} catch (Exception $e) {
+    $response['message'] = 'Server error: ' . $e->getMessage();
 }
 
 $conn->close();

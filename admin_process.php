@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image = trim($_POST['image']);
         $badge = trim($_POST['badge']);
 
-        if (empty($name) || empty($description) || $price <= 0 || empty($category)) {
+        if (empty($name) || empty($description) || !isset($_POST['price']) || $price < 0 || empty($category)) {
             $response['message'] = 'All required fields must be filled.';
         } else {
             $stmt = $conn->prepare("INSERT INTO foods (name, description, price, category, image, badge) VALUES (?, ?, ?, ?, ?, ?)");

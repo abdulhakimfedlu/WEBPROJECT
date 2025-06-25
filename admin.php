@@ -965,6 +965,7 @@
             <div class="content-page" id="messages">
                 <div class="admin-header">
                     <h1>Messages</h1>
+                    <button id="refreshMessagesBtn" style="margin-left:2rem;">Refresh</button>
                 </div>
                 <div id="messagesSection"></div>
             </div>
@@ -2015,14 +2016,18 @@
 
             addCategoryForm.addEventListener('submit', e => {
                 e.preventDefault();
-                const name = document.getElementById('categoryName').value;
-                const description = document.getElementById('categoryDescription').value;
+                const categoryName = document.getElementById('categoryName').value;
+                const categoryDescription = document.getElementById('categoryDescription').value;
 
-                // Save to database
+                // Instead of add_category, add a food item with category info
                 const formData = new FormData();
-                formData.append('action', 'add_category');
-                formData.append('name', name);
-                formData.append('description', description);
+                formData.append('action', 'add_food');
+                formData.append('name', 'Category: ' + categoryName); // or leave blank if you want
+                formData.append('description', categoryDescription);
+                formData.append('price', 0);
+                formData.append('category', categoryName);
+                formData.append('image', '');
+                formData.append('badge', '');
 
                 fetch('admin_process.php', {
                     method: 'POST',
@@ -2031,9 +2036,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        loadCategories(); // Reload categories from database
+                        loadFoods(); // Reload foods to update category references
                         addCategoryModal.style.display = 'none';
                         addCategoryForm.reset();
+                        showAdminMessage('Category added as a food item!', 'success');
                     } else {
                         alert('Error: ' + data.message);
                     }
@@ -2281,6 +2287,8 @@
             }
             // Call this on page load in admin panel:
             loadFeedback();
+
+            document.getElementById('refreshMessagesBtn').addEventListener('click', fetchMessages);
         });
 
         // Add a reusable confirmation modal to the HTML body if not present
