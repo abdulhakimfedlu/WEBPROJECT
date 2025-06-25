@@ -1522,6 +1522,7 @@
                             foodItemsList.appendChild(foodCard);
                         });
                         updateCategoryDropdownsFromFoods(data);
+                        renderCategories(); // <-- update categories after loading foods
                     });
             }
 
@@ -1748,24 +1749,30 @@
 
             function renderCategories() {
                 categoriesList.innerHTML = '';
-                const foodCategorySelect = document.getElementById('foodCategory');
-                const editFoodCategorySelect = document.getElementById('editFoodCategory');
-                foodCategorySelect.innerHTML = categories.map(cat => `<option value="${cat.name}">${cat.name}</option>`).join('');
-                editFoodCategorySelect.innerHTML = categories.map(cat => `<option value="${cat.name}">${cat.name}</option>`).join('');
-                categories.forEach(category => {
-                    const card = document.createElement('div');
-                    card.classList.add('category-card');
-                    card.innerHTML = `
-                        <h3>${category.name}</h3>
-                        <p>${category.description}</p>
-                        <div class="actions">
-                            <button class="edit-btn" data-name="${category.name}" aria-label="Edit"><i class="fas fa-edit"></i></button>
-                            <button class="delete-btn" data-name="${category.name}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
-                        </div>
-                    `;
-                    categoriesList.appendChild(card);
-                });
-                addCategoryListeners();
+                // Get all foods from the foods table (already loaded in loadFoods)
+                fetch('get_foods.php')
+                    .then(response => response.json())
+                    .then(foods => {
+                        // Get unique categories
+                        const uniqueCategories = [...new Set(foods.map(f => f.category).filter(Boolean))];
+                        uniqueCategories.forEach(catName => {
+                            // Try to find a food item with this category and price 0 (i.e., a category entry)
+                            const catFood = foods.find(f => f.category === catName && parseFloat(f.price) === 0);
+                            const description = catFood ? catFood.description : '';
+                            const card = document.createElement('div');
+                            card.classList.add('category-card');
+                            card.innerHTML = `
+                                <h3>${catName}</h3>
+                                <p>${description}</p>
+                                <div class="actions">
+                                    <button class="edit-btn" data-name="${catName}" aria-label="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="delete-btn" data-name="${catName}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
+                                </div>
+                            `;
+                            categoriesList.appendChild(card);
+                        });
+                        addCategoryListeners();
+                    });
             }
 
             // Sidebar Navigation
@@ -2038,6 +2045,7 @@
                 .then(data => {
                     if (data.success) {
                         loadFoods(); // Reload foods to update category references
+                        renderCategories(); // <-- update categories after adding
                         addCategoryModal.style.display = 'none';
                         addCategoryForm.reset();
                         showAdminMessage('Category added as a food item!', 'success');
