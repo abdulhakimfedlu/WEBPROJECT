@@ -1521,6 +1521,7 @@
                             `;
                             foodItemsList.appendChild(foodCard);
                         });
+                        updateCategoryDropdownsFromFoods(data);
                     });
             }
 
@@ -2321,6 +2322,15 @@
             modal.style.display = 'flex';
             yes.onclick = () => { modal.style.display = 'none'; onConfirm(); };
             no.onclick = () => { modal.style.display = 'none'; };
+        }
+
+        // Helper: Get unique categories from foods
+        function updateCategoryDropdownsFromFoods(foods) {
+            const foodCategorySelect = document.getElementById('foodCategory');
+            const editFoodCategorySelect = document.getElementById('editFoodCategory');
+            const uniqueCategories = [...new Set(foods.map(f => f.category).filter(Boolean))];
+            foodCategorySelect.innerHTML = uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+            editFoodCategorySelect.innerHTML = uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
         }
     </script>
 </body>
