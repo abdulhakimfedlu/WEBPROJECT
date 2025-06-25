@@ -1407,6 +1407,19 @@
 
         let categories = [];
 
+        // Load Categories from Database
+        function loadCategories() {
+            fetch('get_categories.php')
+                .then(response => response.json())
+                .then(data => {
+                    categories = data;
+                    renderCategories();
+                })
+                .catch(error => {
+                    console.error('Error loading categories:', error);
+                });
+        }
+
         // Admin Functionality
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init();
@@ -1781,7 +1794,7 @@
                     if (target === 'messages') fetchMessages();
                     if (target === 'employees') loadEmployees();
                     if (target === 'food-items') loadFoods();
-                    if (target === 'categories') renderCategories();
+                    if (target === 'categories') loadCategories();
                 });
             });
 
@@ -2020,10 +2033,30 @@
                 const name = document.getElementById('categoryName').value;
                 const description = document.getElementById('categoryDescription').value;
 
-                categories.push({ name, description });
-                renderCategories();
-                addCategoryModal.style.display = 'none';
-                addCategoryForm.reset();
+                // Save to database
+                const formData = new FormData();
+                formData.append('action', 'add_category');
+                formData.append('name', name);
+                formData.append('description', description);
+
+                fetch('admin_process.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadCategories(); // Reload categories from database
+                        addCategoryModal.style.display = 'none';
+                        addCategoryForm.reset();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error adding category');
+                });
             });
 
             cancelEditCategoryModal.addEventListener('click', () => {
@@ -2037,16 +2070,32 @@
                 const description = document.getElementById('editCategoryDescription').value;
                 const oldName = editCategoryForm.dataset.name;
 
-                categories = categories.map(cat => 
-                    cat.name === oldName ? { name, description } : cat
-                );
-                foodItems = foodItems.map(item => 
-                    item.category === oldName ? { ...item, category: name } : item
-                );
-                renderCategories();
-                renderFoodItems();
-                editCategoryModal.style.display = 'none';
-                editCategoryForm.reset();
+                // Update in database
+                const formData = new FormData();
+                formData.append('action', 'update_category');
+                formData.append('old_name', oldName);
+                formData.append('name', name);
+                formData.append('description', description);
+
+                fetch('admin_process.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadCategories(); // Reload categories from database
+                        loadFoods(); // Reload foods to update category references
+                        editCategoryModal.style.display = 'none';
+                        editCategoryForm.reset();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error updating category');
+                });
             });
 
             closeViewCategoryModal.addEventListener('click', () => {
@@ -2058,10 +2107,28 @@
                     button.addEventListener('click', () => {
                         const name = button.dataset.name;
                         customConfirm('Are you sure you want to delete this category?', () => {
-                            categories = categories.filter(cat => cat.name !== name);
-                            foodItems = foodItems.filter(item => item.category !== name);
-                            renderCategories();
-                            renderFoodItems();
+                            // Delete from database
+                            const formData = new FormData();
+                            formData.append('action', 'delete_category');
+                            formData.append('name', name);
+
+                            fetch('admin_process.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    loadCategories(); // Reload categories from database
+                                    loadFoods(); // Reload foods to update category references
+                                } else {
+                                    alert('Error: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Error deleting category');
+                            });
                         });
                     });
                 });
@@ -2117,13 +2184,11 @@
                 });
             }
 
-            // Initial Load
-            renderEmployees();
-            renderFoodItems();
-            renderCategories();
-            loadOrders();
-            loadFoods();
+            // Initialize the admin panel
             loadEmployees();
+            loadFoods();
+            loadCategories();
+            fetchMessages();
 
             // Expose data for menu.js
             window.menuData = { 

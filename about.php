@@ -47,7 +47,7 @@
                 <p>Discover our passion for creating premium cold-pressed juices that nourish your body and soul.</p>
             </div>
             <div class="about-hero-image">
-                <img src="fruits-juices-wallpaper-preview.jpg" alt="About Juice Plus">
+                <img src="images/chef chef.jpg" alt="About Juice Plus">
             </div>
         </div>
     </section>
@@ -68,7 +68,7 @@
                 <p class="section-description">At Juice Plus+, we believe that wellness starts with what you put into your body. Our mission is to craft juices that are as delicious as they are nutritious, using only the finest organic ingredients. We're committed to sustainability, community, and innovation, ensuring every bottle supports a healthier you and a healthier planet.</p>
             </div>
             <div class="mission-image">
-                <img src="fruits-juices-wallpaper-preview.jpg" alt="Our Mission">
+                <img src="images/focused-fat-black-chef-preparing-fresh-salad-stylish-modern-kitchen_124507-288883.avif" alt="Our Mission">
             </div>
         </div>
     </section>
