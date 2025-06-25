@@ -1177,6 +1177,8 @@
                     <button type="submit" class="submit-btn"><i class="fas fa-plus" aria-label="Add"></i> Add Item</button>
                     <button type="button" class="cancel-btn" id="cancelFoodItemModal"><i class="fas fa-times" aria-label="Cancel"></i> Cancel</button>
                 </div>
+                <!-- Add a hidden input to store the uploaded food photo path -->
+                <input type="hidden" id="foodPhotoPath" name="image">
             </form>
         </div>
     </div>
@@ -1775,7 +1777,7 @@
                     const card = document.createElement('div');
                     card.classList.add('food-item-card');
                     card.innerHTML = `
-                        <img src="${item.photo || 'https://via.placeholder.com/100'}" alt="${item.name}">
+                        <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}">
                         <h3>${item.name}</h3>
                         <p>$${item.price.toFixed(2)}</p>
                         <p>${item.category}</p>
@@ -2309,6 +2311,70 @@
             loadFeedback();
 
             document.getElementById('refreshMessagesBtn').addEventListener('click', fetchMessages);
+
+            // Add a hidden input to store the uploaded food photo path
+            let foodPhotoPathInput = document.getElementById('foodPhotoPath');
+            if (!foodPhotoPathInput) {
+                foodPhotoPathInput = document.createElement('input');
+                foodPhotoPathInput.type = 'hidden';
+                foodPhotoPathInput.id = 'foodPhotoPath';
+                foodPhotoPathInput.name = 'image';
+                document.getElementById('addFoodItemForm').appendChild(foodPhotoPathInput);
+            }
+
+            // Upload food photo when selected
+            foodPhotoInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('photo', file);
+                    fetch('upload_food_photo.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            foodPhotoPathInput.value = data.file;
+                            // Show preview
+                            foodPhotoPreview.src = data.file;
+                            foodPhotoPreview.style.display = 'block';
+                        } else {
+                            alert(data.message || 'Photo upload failed.');
+                            foodPhotoPathInput.value = '';
+                        }
+                    })
+                    .catch(() => {
+                        alert('Photo upload failed.');
+                        foodPhotoPathInput.value = '';
+                    });
+                }
+            });
+
+            // In Add Food Item submit, use the uploaded file path
+            if (addFoodItemForm) {
+                addFoodItemForm.addEventListener('submit', e => {
+                    e.preventDefault();
+                    const formData = new FormData(addFoodItemForm);
+                    formData.append('action', 'add_food');
+                    // The image field is already set by the hidden input
+                    fetch('admin_process.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        showAdminMessage(data.message, data.success ? 'success' : 'error');
+                        if (data.success) {
+                            addFoodItemForm.reset();
+                            foodPhotoPreview.style.display = 'none';
+                            foodPhotoPathInput.value = '';
+                            loadFoods();
+                        }
+                    })
+                    .catch(() => showAdminMessage('An error occurred.', 'error'));
+                });
+            }
         });
 
         // Add a reusable confirmation modal to the HTML body if not present
