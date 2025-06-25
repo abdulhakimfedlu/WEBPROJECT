@@ -1078,6 +1078,8 @@
                     <button type="submit" class="submit-btn"><i class="fas fa-plus" aria-label="Add"></i> Add Employee</button>
                     <button type="button" class="cancel-btn" id="cancelEmployeeModal"><i class="fas fa-times" aria-label="Cancel"></i> Cancel</button>
                 </div>
+                <!-- Add a hidden input to store the uploaded photo path -->
+                <input type="hidden" id="employeePhotoPath" name="image">
             </form>
         </div>
     </div>
@@ -1453,6 +1455,45 @@
             const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
             const contentPages = document.querySelectorAll('.content-page');
 
+            // Add a hidden input to store the uploaded photo path
+            let employeePhotoPathInput = document.getElementById('employeePhotoPath');
+            if (!employeePhotoPathInput) {
+                employeePhotoPathInput = document.createElement('input');
+                employeePhotoPathInput.type = 'hidden';
+                employeePhotoPathInput.id = 'employeePhotoPath';
+                employeePhotoPathInput.name = 'image';
+                document.getElementById('addEmployeeForm').appendChild(employeePhotoPathInput);
+            }
+
+            // Upload photo when selected
+            employeePhotoInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('photo', file);
+                    fetch('upload_employee_photo.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            employeePhotoPathInput.value = data.file;
+                            // Show preview
+                            employeePhotoPreview.src = data.file;
+                            employeePhotoPreview.style.display = 'block';
+                        } else {
+                            alert(data.message || 'Photo upload failed.');
+                            employeePhotoPathInput.value = '';
+                        }
+                    })
+                    .catch(() => {
+                        alert('Photo upload failed.');
+                        employeePhotoPathInput.value = '';
+                    });
+                }
+            });
+
             // Add Food
             if (addFoodItemForm) {
                 addFoodItemForm.addEventListener('submit', e => {
@@ -1482,7 +1523,7 @@
                     e.preventDefault();
                     const formData = new FormData(addEmployeeForm);
                     formData.append('action', 'add_employee');
-
+                    // The image field is already set by the hidden input
                     fetch('admin_process.php', {
                         method: 'POST',
                         body: formData
@@ -1491,6 +1532,8 @@
                     .then(data => {
                         if (data.success) {
                             addEmployeeForm.reset();
+                            employeePhotoPreview.style.display = 'none';
+                            employeePhotoPathInput.value = '';
                             loadEmployees();
                             showAdminMessage('Employee added successfully!', 'success');
                         } else {
@@ -1829,21 +1872,6 @@
                 employeePhotoPreview.style.display = 'none';
             });
 
-            addEmployeeForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const name = document.getElementById('employeeName').value;
-                const role = document.getElementById('employeeRole').value;
-                const phone = document.getElementById('employeePhone').value;
-                const salary = parseInt(document.getElementById('employeeSalary').value);
-                const photo = employeePhotoPreview.src || 'https://via.placeholder.com/100';
-
-                employees.push({ name, role, phone, salary, photo });
-                renderEmployees();
-                addEmployeeModal.style.display = 'none';
-                addEmployeeForm.reset();
-                employeePhotoPreview.style.display = 'none';
-            });
-
             cancelEditEmployeeModal.addEventListener('click', () => {
                 editEmployeeModal.style.display = 'none';
                 editEmployeeForm.reset();
@@ -1919,23 +1947,6 @@
             });
 
             cancelFoodItemModal.addEventListener('click', () => {
-                addFoodItemModal.style.display = 'none';
-                addFoodItemForm.reset();
-                foodPhotoPreview.style.display = 'none';
-            });
-
-            addFoodItemForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const name = document.getElementById('foodName').value;
-                const price = parseFloat(document.getElementById('foodPrice').value);
-                const description = document.getElementById('foodDescription').value;
-                const category = document.getElementById('foodCategory').value;
-                const photo = foodPhotoPreview.src || 'https://via.placeholder.com/100';
-                const badge = document.getElementById('foodBadge').value;
-                const id = foodItems.length + 1;
-
-                foodItems.push({ id, name, price, description, category, photo, badge });
-                renderFoodItems();
                 addFoodItemModal.style.display = 'none';
                 addFoodItemForm.reset();
                 foodPhotoPreview.style.display = 'none';
