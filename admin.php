@@ -1025,7 +1025,7 @@
                     </div>
                     <div class="form-group">
                         <label for="storeEmail">Email</label>
-                        <input type="email" id="storeEmail" value="hello@juiceplus.com">
+                        <input type="email" id="storeEmail" value="abduJabez@gmail.com">
                     </div>
                     <div class="form-group">
                         <label for="storeHours">Operating Hours</label>

@@ -50,14 +50,14 @@
                         <i class="fas fa-phone"></i>
                         <div>
                             <h4>Call Us</h4>
-                            <p>(555) 123-4567</p>
+                            <p>0939900633</p>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h4>Email Us</h4>
-                            <p>hello@juiceplus.com</p>
+                            <p>abduJabez@gmail.com</p>
                         </div>
                     </div>
                     <div class="info-item">
@@ -156,37 +156,37 @@
             <div class="location-cards">
                 <div class="location-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="location-image">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Downtown Location">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Zefmesh Grand Mall megenagna">
                     </div>
                     <div class="location-info">
-                        <h3>Downtown Juice Bar</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Beverage City</p>
-                        <p><i class="fas fa-phone"></i> (555) 123-4567</p>
-                        <p><i class="fas fa-clock"></i> Mon-Sat: 7am-9pm, Sun: 8am-7pm</p>
+                        <h3>Zefmesh Grand Mall megenagna</h3>
+                        <p>Experience our premium juices in the heart of the city at Zefmesh Grand Mall.</p>
+                        <p><i class="fas fa-phone"></i> 0939900633</p>
+                        <p><i class="fas fa-envelope"></i> abduJabez@gmail.com</p>
                         <a href="#" class="location-btn">Get Directions</a>
                     </div>
                 </div>
                 <div class="location-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="location-image">
-                        <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Westside Location">
+                        <img src="https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ambasadar 4 killo">
                     </div>
                     <div class="location-info">
-                        <h3>Westside Cafe</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> 456 Wellness Ave, Beverage City</p>
-                        <p><i class="fas fa-phone"></i> (555) 987-6543</p>
-                        <p><i class="fas fa-clock"></i> Mon-Fri: 8am-8pm, Sat-Sun: 9am-6pm</p>
+                        <h3>Ambasadar 4 killo</h3>
+                        <p>Visit our flagship store at Ambasadar 4 killo for the ultimate juice experience.</p>
+                        <p><i class="fas fa-phone"></i> 0939900633</p>
+                        <p><i class="fas fa-envelope"></i> abduJabez@gmail.com</p>
                         <a href="#" class="location-btn">Get Directions</a>
                     </div>
                 </div>
                 <div class="location-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="location-image">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="East End Location">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Handmade shola">
                     </div>
                     <div class="location-info">
-                        <h3>East End Kiosk</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> 789 Refresh Blvd, Beverage City</p>
-                        <p><i class="fas fa-phone"></i> (555) 456-7890</p>
-                        <p><i class="fas fa-clock"></i> Daily: 7:30am-7:30pm</p>
+                        <h3>Handmade shola</h3>
+                        <p>Discover our artisanal juices at Handmade shola location.</p>
+                        <p><i class="fas fa-phone"></i> 0939900633</p>
+                        <p><i class="fas fa-envelope"></i> abduJabez@gmail.com</p>
                         <a href="#" class="location-btn">Get Directions</a>
                     </div>
                 </div>
@@ -269,18 +269,17 @@
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
                     <h4>Our Locations</h4>
                     <ul>
-                        <li><a href="#">Downtown Juice Bar</a></li>
-                        <li><a href="#">Westside Cafe</a></li>
-                        <li><a href="#">East End Kiosk</a></li>
-                        <li><a href="#">Northside Pop-up</a></li>
+                        <li><a href="#">Zefmesh Grand Mall megenagna</a></li>
+                        <li><a href="#">Ambasadar 4 killo</a></li>
+                        <li><a href="#">Handmade shola</a></li>
                     </ul>
                 </div>
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
                     <h4>Contact Info</h4>
                     <ul class="footer-contact">
                         <li><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Beverage City</li>
-                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> hello@juiceplus.com</li>
+                        <li><i class="fas fa-phone"></i> 0939900633</li>
+                        <li><i class="fas fa-envelope"></i> abduJabez@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Mon-Sat: 7am-7pm, Sun: 8am-5pm</li>
                     </ul>
                 </div>

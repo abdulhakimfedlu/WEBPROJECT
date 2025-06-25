@@ -75,7 +75,7 @@ function category_slug($name) {
                 </div>
             </div>
             <div class="menu-hero-image" data-aos="fade-left">
-                <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Juice Selection">
+                <img src="images/burger and juice.avif" alt="Juice Selection">
             </div>
         </div>
     </section>
@@ -193,8 +193,8 @@ function category_slug($name) {
                     <h4>Contact Info</h4>
                     <ul class="footer-contact">
                         <li><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Addis Ababa</li>
-                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> hello@juiceplus.com</li>
+                        <li><i class="fas fa-phone"></i> 0939900633</li>
+                        <li><i class="fas fa-envelope"></i> abduJabez@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Mon-Sat: 7am-7pm, Sun: 8am-5pm</li>
                     </ul>
                 </div>

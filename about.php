@@ -42,18 +42,18 @@
     <!-- About Hero -->
     <section class="about-hero">
         <div class="about-hero-content container">
-            <div class="about-hero-text" data-aos="fade-right">
-                <h1>About <span>Juice Plus+</span></h1>
+            <div class="about-hero-text">
+                <h1>About <span class="highlight-text">Juice Plus+</span></h1>
                 <p>Discover our passion for creating premium cold-pressed juices that nourish your body and soul.</p>
             </div>
-            <div class="about-hero-image" data-aos="fade-left">
+            <div class="about-hero-image">
                 <img src="fruits-juices-wallpaper-preview.jpg" alt="About Juice Plus">
             </div>
         </div>
     </section>
 
     <!-- Our Story Section -->
-    <section class="our-story">
+    <section class="our-story section-bg">
         <div class="our-story-content container">
             <h2 class="section-title">Our <span class="highlight-text">Story</span></h2>
             <p class="section-description">Juice Plus+ was founded in 2020 with a simple mission: to bring the freshest, most nutrient-packed juices to our community. Inspired by a love for wellness and sustainable living, we set out to create juices that not only taste incredible but also promote health and vitality. Today, we're proud to be a trusted name in cold-pressed juicing, sourcing organic ingredients from local farms and using innovative techniques to preserve every drop of goodness.</p>
@@ -63,33 +63,33 @@
     <!-- Our Mission Section -->
     <section class="our-mission">
         <div class="our-mission-content container">
-            <div class="mission-text" data-aos="fade-right">
+            <div class="mission-text">
                 <h2 class="section-title">Our <span class="highlight-text">Mission</span></h2>
                 <p class="section-description">At Juice Plus+, we believe that wellness starts with what you put into your body. Our mission is to craft juices that are as delicious as they are nutritious, using only the finest organic ingredients. We're committed to sustainability, community, and innovation, ensuring every bottle supports a healthier you and a healthier planet.</p>
             </div>
-            <div class="mission-image" data-aos="fade-left">
-                <!-- <img src="" alt="Our Mission"> -->
+            <div class="mission-image">
+                <img src="fruits-juices-wallpaper-preview.jpg" alt="Our Mission">
             </div>
         </div>
     </section>
 
     <!-- Our Values Section -->
-    <section class="our-values">
+    <section class="our-values section-bg">
         <div class="our-values-content container">
             <h2 class="section-title">Our <span class="highlight-text">Values</span></h2>
             <p class="section-description">These core values guide everything we do at Juice Plus+.</p>
             <div class="values-cards">
-                <div class="value-card" data-aos="fade-up">
+                <div class="value-card">
                     <div class="card-icon"><i class="fas fa-leaf"></i></div>
                     <h3>Organic Excellence</h3>
                     <p>We use 100% organic ingredients to ensure purity and quality in every sip.</p>
                 </div>
-                <div class="value-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="value-card">
                     <div class="card-icon"><i class="fas fa-flask"></i></div>
                     <h3>Innovation</h3>
                     <p>Our cold-pressed process maximizes nutrients and flavor for the ultimate juice experience.</p>
                 </div>
-                <div class="value-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="value-card">
                     <div class="card-icon"><i class="fas fa-heart"></i></div>
                     <h3>Community</h3>
                     <p>We support local farmers and promote sustainable practices to give back to our community.</p>
@@ -124,18 +124,17 @@
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
                     <h4>Our Locations</h4>
                     <ul>
-                        <li><a href="#">Downtown Juice Bar</a></li>
-                        <li><a href="#">Westside Cafe</a></li>
-                        <li><a href="#">East End Kiosk</a></li>
-                        <li><a href="#">Northside Pop-up</a></li>
+                        <li><a href="#">Zefmesh Grand Mall megenagna</a></li>
+                        <li><a href="#">Ambasadar 4 killo</a></li>
+                        <li><a href="#">Handmade shola</a></li>
                     </ul>
                 </div>
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
                     <h4>Contact Info</h4>
                     <ul class="footer-contact">
                         <li><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Beverage City</li>
-                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> hello@juiceplus.com</li>
+                        <li><i class="fas fa-phone"></i> 0939900633</li>
+                        <li><i class="fas fa-envelope"></i> abduJabez@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Mon-Sat: 7am-7pm, Sun: 8am-5pm</li>
                     </ul>
                 </div>

@@ -53,7 +53,7 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="menu.php" class="hero-btn primary-btn">Explore Menu</a>
-                    <a href="about.html" class="hero-btn secondary-btn">
+                    <a href="about.php" class="hero-btn secondary-btn">
                         <i class="fas fa-info-circle"></i> About Us
                     </a>
                 </div>
@@ -103,7 +103,7 @@
                         <p>We support local farmers and sustainable practices.</p>
                     </div>
                 </div>
-                <a href="about.html" class="hero-btn primary-btn">Learn More</a>
+                <a href="about.php" class="hero-btn primary-btn">Learn More</a>
             </div>
             <div class="about-image" data-aos="fade-left">
                 <img src="images/photo_2025-06-12_10-04-13.jpg" alt="About Juice Plus">
@@ -238,8 +238,8 @@
                     <h4>Contact Info</h4>
                     <ul class="footer-contact">
                         <li><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Addis Ababa</li>
-                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> hello@juiceplus.com</li>
+                        <li><i class="fas fa-phone"></i> 0939900633</li>
+                        <li><i class="fas fa-envelope"></i> abduJabez@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Mon-Sat: 7am-7pm, Sun: 8am-5pm</li>
                     </ul>
                 </div>
