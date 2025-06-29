@@ -872,6 +872,122 @@ if (!isset($_SESSION['admin_id'])) {
             padding: 1.2rem 1.5rem;
             margin-bottom: 1.2rem;
         }
+
+        .food-item-card, .food-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.08);
+            border: 1.5px solid #f2f2f2;
+            padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.2s, border 0.2s, transform 0.18s;
+            min-width: 220px;
+            position: relative;
+        }
+        .food-item-card:hover, .food-card:hover {
+            box-shadow: 0 10px 32px rgba(255, 107, 107, 0.13);
+            border: 1.5px solid var(--primary-color);
+            transform: translateY(-6px) scale(1.025);
+        }
+        .food-item-card img, .food-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.10);
+            background: #fff;
+            border: 2px solid #f4f4f4;
+        }
+        .food-item-card h3, .food-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--dark-color);
+            letter-spacing: 0.1px;
+            text-align: center;
+        }
+        .food-item-card p, .food-card p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 0.7rem;
+            text-align: center;
+        }
+        .food-item-card .item-badge, .food-card .item-badge, .food-card span {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .food-item-card .actions, .food-card .actions {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+        .food-item-card .edit-btn, .food-item-card .delete-btn, .food-card button, .food-card .edit-btn, .food-card .delete-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.7rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.10);
+            gap: 0.7rem;
+            background: linear-gradient(90deg, var(--primary-color) 60%, var(--secondary-color) 100%);
+            color: #fff;
+            margin: 0 0.2rem;
+        }
+        .food-item-card .edit-btn, .food-card .edit-btn {
+            background: linear-gradient(90deg, var(--secondary-color) 60%, var(--primary-color) 100%);
+        }
+        .food-item-card .edit-btn:hover, .food-card .edit-btn:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: scale(1.08);
+        }
+        .food-item-card .delete-btn, .food-card .delete-btn, .food-card button {
+            background: linear-gradient(90deg, #ff6b6b 60%, #ff8e53 100%);
+        }
+        .food-item-card .delete-btn:hover, .food-card .delete-btn:hover, .food-card button:hover {
+            background: var(--dark-color);
+            color: #fff;
+            transform: scale(1.08);
+        }
+        .food-item-card .edit-btn i, .food-item-card .delete-btn i, .food-card .edit-btn i, .food-card .delete-btn i {
+            font-size: 1.3rem;
+            margin-right: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .food-item-card, .food-card {
+                min-width: 100%;
+                padding: 1.2rem 0.5rem 1rem 0.5rem;
+            }
+            .food-item-card img, .food-card img {
+                width: 90px;
+                height: 90px;
+            }
+        }
+        @media (max-width: 576px) {
+            .food-item-card, .food-card {
+                padding: 0.7rem 0.2rem 0.7rem 0.2rem;
+            }
+            .food-item-card img, .food-card img {
+                width: 70px;
+                height: 70px;
+            }
+            .food-item-card .actions, .food-card .actions {
+                flex-direction: column;
+                gap: 0.7rem;
+            }
+        }
     </style>
 </head>
 <body>
