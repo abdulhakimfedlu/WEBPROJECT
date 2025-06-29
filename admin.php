@@ -1501,7 +1501,10 @@ if (!isset($_SESSION['admin_id'])) {
             });
 
             // Add Food
-            
+            if (addFoodItemForm) {
+                // Duplicate handler removed to prevent double submission
+            }
+
             // Add Employee
             if (addEmployeeForm) {
                 addEmployeeForm.addEventListener('submit', e => {

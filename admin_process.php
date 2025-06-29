@@ -89,6 +89,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             $stmt->close();
         }
+    } elseif ($action === 'delete_category') {
+        $name = trim($_POST['name']);
+        $stmt = $conn->prepare("DELETE FROM foods WHERE category = ?");
+        $stmt->bind_param("s", $name);
+        if ($stmt->execute()) {
+            $response['success'] = true;
+            $response['message'] = 'Category and its foods deleted successfully.';
+        } else {
+            $response['message'] = 'Failed to delete category.';
+        }
+        $stmt->close();
     }
 } else {
     $response['message'] = 'Invalid request method.';
