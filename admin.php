@@ -336,6 +336,13 @@ if (!isset($_SESSION['admin_id'])) {
         .view-modal-content {
             max-width: 400px;
             text-align: center;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(80,80,80,0.13);
+            padding: 2.5rem 2rem 2rem 2rem;
+            margin: 0 auto;
+            position: relative;
+            opacity: 1 !important;
         }
 
         .view-modal-content img {
@@ -1085,7 +1092,10 @@ if (!isset($_SESSION['admin_id'])) {
             <div class="content-page" id="messages">
                 <div class="admin-header">
                     <h1>Messages</h1>
-                    <button id="refreshMessagesBtn" style="margin-left:2rem;">Refresh</button>
+                    <button id="refreshMessagesBtn" class="refresh-btn" style="margin-left:2rem;display:flex;align-items:center;gap:0.6rem;background:linear-gradient(90deg,var(--primary-color) 60%,var(--secondary-color) 100%);color:#fff;border:none;border-radius:50px;padding:0.8rem 1.7rem;font-size:1.15rem;font-weight:700;box-shadow:0 2px 8px rgba(255,107,107,0.10);cursor:pointer;transition:background 0.2s,transform 0.2s;">
+                        <i class="fas fa-sync-alt" id="refreshIcon" style="transition:transform 0.4s;"></i>
+                        <span>Refresh</span>
+                    </button>
                 </div>
                 <div id="messagesSection"></div>
             </div>
@@ -1731,6 +1741,27 @@ if (!isset($_SESSION['admin_id'])) {
                                             document.getElementById('viewEmployeePhone').textContent = `Phone: ${emp.phone}`;
                                             document.getElementById('viewEmployeeSalary').textContent = `Salary: ${emp.salary} Birr`;
                                             viewEmployeeModal.style.display = 'flex';
+                                        }
+                                    });
+                            });
+                        });
+                        // Edit
+                        document.querySelectorAll('.employee-card .edit-btn').forEach(button => {
+                            button.addEventListener('click', () => {
+                                const id = button.getAttribute('data-id');
+                                fetch('get_employees.php')
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        const emp = data.find(e => e.id == id);
+                                        if (emp) {
+                                            document.getElementById('editEmployeeName').value = emp.name;
+                                            document.getElementById('editEmployeeRole').value = emp.role;
+                                            document.getElementById('editEmployeePhone').value = emp.phone;
+                                            document.getElementById('editEmployeeSalary').value = emp.salary;
+                                            document.getElementById('editEmployeePhotoPreview').src = emp.image || 'https://via.placeholder.com/100';
+                                            document.getElementById('editEmployeePhotoPreview').style.display = 'block';
+                                            editEmployeeForm.dataset.id = id;
+                                            editEmployeeModal.style.display = 'flex';
                                         }
                                     });
                             });
@@ -2510,6 +2541,21 @@ if (!isset($_SESSION['admin_id'])) {
             const uniqueCategories = [...new Set(foods.map(f => f.category).filter(Boolean))];
             foodCategorySelect.innerHTML = uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
             editFoodCategorySelect.innerHTML = uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+        }
+
+        // Add this after DOMContentLoaded in the script section
+        const refreshBtn = document.getElementById('refreshMessagesBtn');
+        const refreshIcon = document.getElementById('refreshIcon');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                refreshBtn.disabled = true;
+                refreshIcon.style.transform = 'rotate(360deg)';
+                fetchMessages();
+                setTimeout(() => {
+                    refreshBtn.disabled = false;
+                    refreshIcon.style.transform = 'rotate(0deg)';
+                }, 800);
+            });
         }
     </script>
 </body>
