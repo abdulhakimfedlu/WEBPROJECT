@@ -1501,28 +1501,7 @@ if (!isset($_SESSION['admin_id'])) {
             });
 
             // Add Food
-            if (addFoodItemForm) {
-                addFoodItemForm.addEventListener('submit', e => {
-                    e.preventDefault();
-                    const formData = new FormData(addFoodItemForm);
-                    formData.append('action', 'add_food');
-
-                    fetch('admin_process.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        showAdminMessage(data.message, data.success ? 'success' : 'error');
-                        if (data.success) {
-                            addFoodItemForm.reset();
-                            loadFoods();
-                        }
-                    })
-                    .catch(() => showAdminMessage('An error occurred.', 'error'));
-                });
-            }
-
+            
             // Add Employee
             if (addEmployeeForm) {
                 addEmployeeForm.addEventListener('submit', e => {
