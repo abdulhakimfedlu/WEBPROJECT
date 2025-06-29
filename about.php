@@ -155,6 +155,7 @@
         <i class="fas fa-arrow-up"></i>
     </a>
 
+    <!-- JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>

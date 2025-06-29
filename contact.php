@@ -1,3 +1,33 @@
+<?php
+require_once 'db_connect.php';
+$success = '';
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $subject = trim($_POST['subject']);
+    $message = trim($_POST['message']);
+
+    // Basic validation
+    if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+        $error = 'All fields are required.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Invalid email format.';
+    } else {
+        // Prepare and execute SQL
+        $stmt = $conn->prepare("INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $name, $email, $subject, $message);
+
+        if ($stmt->execute()) {
+            $success = 'Message sent successfully!';
+        } else {
+            $error = 'Failed to send message. Please try again.';
+        }
+        $stmt->close();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,36 +112,6 @@
                 <h2>Send Us a Message</h2>
                 <p>Fill out the form below and we'll get back to you within 24 hours</p>
             </div>
-            <?php
-            require_once 'db_connect.php';
-            $success = '';
-            $error = '';
-
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $name = trim($_POST['name']);
-                $email = trim($_POST['email']);
-                $subject = trim($_POST['subject']);
-                $message = trim($_POST['message']);
-
-                // Basic validation
-                if (empty($name) || empty($email) || empty($subject) || empty($message)) {
-                    $error = 'All fields are required.';
-                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $error = 'Invalid email format.';
-                } else {
-                    // Prepare and execute SQL
-                    $stmt = $conn->prepare("INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)");
-                    $stmt->bind_param("ssss", $name, $email, $subject, $message);
-
-                    if ($stmt->execute()) {
-                        $success = 'Message sent successfully!';
-                    } else {
-                        $error = 'Failed to send message. Please try again.';
-                    }
-                    $stmt->close();
-                }
-            }
-            ?>
             <form id="contact-form" class="contact-form" data-aos="fade-up" data-aos-delay="100" method="POST" action="contact.php">
                 <div class="form-row">
                     <div class="form-group">
@@ -300,6 +300,7 @@
         <i class="fas fa-arrow-up"></i>
     </a>
 
+    <!-- JavaScript -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
