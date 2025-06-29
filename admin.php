@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +17,11 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script>
     // JS authentication check
-    if (localStorage.getItem('admin_logged_in') !== 'true') {
-        window.location.href = 'middleware.php';
-    }
+    
     // Logout handler
-    function adminLogout() {
-        localStorage.removeItem('admin_logged_in');
-        window.location.href = 'middleware.php';
-    }
+   function adminLogout() {
+    window.location.href = 'logout.php';
+}
     </script>
     <style>
         /* Admin Panel Styles */
@@ -1567,7 +1571,7 @@
                             foodItemsList.appendChild(foodCard);
                         });
                         updateCategoryDropdownsFromFoods(data);
-                        renderCategories(); // <-- update categories after loading foods
+                        renderCategories(data); // Pass foods directly
                     });
             }
 
@@ -1792,32 +1796,25 @@
                 addFoodItemListeners();
             }
 
-            function renderCategories() {
+            function renderCategories(foods) {
                 categoriesList.innerHTML = '';
-                // Get all foods from the foods table (already loaded in loadFoods)
-                fetch('get_foods.php')
-                    .then(response => response.json())
-                    .then(foods => {
-                        // Get unique categories
-                        const uniqueCategories = [...new Set(foods.map(f => f.category).filter(Boolean))];
-                        uniqueCategories.forEach(catName => {
-                            // Try to find a food item with this category and price 0 (i.e., a category entry)
-                            const catFood = foods.find(f => f.category === catName && parseFloat(f.price) === 0);
-                            const description = catFood ? catFood.description : '';
-                            const card = document.createElement('div');
-                            card.classList.add('category-card');
-                            card.innerHTML = `
-                                <h3>${catName}</h3>
-                                <p>${description}</p>
-                                <div class="actions">
-                                    <button class="edit-btn" data-name="${catName}" aria-label="Edit"><i class="fas fa-edit"></i></button>
-                                    <button class="delete-btn" data-name="${catName}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
-                                </div>
-                            `;
-                            categoriesList.appendChild(card);
-                        });
-                        addCategoryListeners();
-                    });
+                const uniqueCategories = [...new Set(foods.map(f => f.category).filter(Boolean))];
+                uniqueCategories.forEach(catName => {
+                    const catFood = foods.find(f => f.category === catName && parseFloat(f.price) === 0);
+                    const description = catFood ? catFood.description : '';
+                    const card = document.createElement('div');
+                    card.classList.add('category-card');
+                    card.innerHTML = `
+                        <h3>${catName}</h3>
+                        <p>${description}</p>
+                        <div class="actions">
+                            <button class="edit-btn" data-name="${catName}" aria-label="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="delete-btn" data-name="${catName}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    categoriesList.appendChild(card);
+                });
+                addCategoryListeners();
             }
 
             // Sidebar Navigation
@@ -2057,8 +2054,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        loadFoods(); // Reload foods to update category references
-                        renderCategories(); // <-- update categories after adding
+                        loadFoods(); // This will also update categories
                         addCategoryModal.style.display = 'none';
                         addCategoryForm.reset();
                         showAdminMessage('Category added as a food item!', 'success');
