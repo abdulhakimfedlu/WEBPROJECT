@@ -2,8 +2,8 @@
 require_once 'db_connect.php';
 header('Content-Type: application/json');
 
-// Fetch all orders
-$orderResult = $conn->query("SELECT * FROM orders ORDER BY created_at DESC");
+// Fetch only pending orders (not completed)
+$orderResult = $conn->query("SELECT * FROM orders WHERE status != 'completed' ORDER BY created_at DESC");
 $orders = [];
 while ($order = $orderResult->fetch_assoc()) {
     $order_id = $order['id'];

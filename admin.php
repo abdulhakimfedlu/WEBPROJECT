@@ -20,7 +20,9 @@ if (!isset($_SESSION['admin_id'])) {
     
     // Logout handler
    function adminLogout() {
-    window.location.href = 'logout.php';
+    // Show logout confirmation modal instead of direct redirect
+    const logoutModal = document.getElementById('logoutConfirmModal');
+    logoutModal.style.display = 'flex';
 }
     </script>
     <style>
@@ -1437,6 +1439,27 @@ if (!isset($_SESSION['admin_id'])) {
         </div>
     </div>
 
+    <!-- Logout Confirmation Modal -->
+    <div class="modal" id="logoutConfirmModal">
+        <div class="modal-content">
+            <div class="modal-icon" style="text-align: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-sign-out-alt" style="font-size: 3rem; color: var(--primary-color);"></i>
+            </div>
+            <h2 style="text-align: center; margin-bottom: 1rem;">Confirm Logout</h2>
+            <p style="text-align: center; font-size: 1.4rem; color: var(--text-light); margin-bottom: 2rem;">
+                Are you sure you want to logout from the admin panel?
+            </p>
+            <div class="modal-actions">
+                <button class="submit-btn" id="confirmLogoutBtn">
+                    <i class="fas fa-check" aria-label="Yes"></i> Yes, Logout
+                </button>
+                <button class="cancel-btn" id="cancelLogoutBtn">
+                    <i class="fas fa-times" aria-label="No"></i> No, Stay
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Add styles for the modal -->
     <style>
         .order-complete-modal {
@@ -2500,6 +2523,29 @@ if (!isset($_SESSION['admin_id'])) {
                     .catch(() => showAdminMessage('An error occurred.', 'error'));
                 });
             }
+
+            // Logout Confirmation Modal Handlers
+            const logoutConfirmModal = document.getElementById('logoutConfirmModal');
+            const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+            const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+
+            confirmLogoutBtn.addEventListener('click', () => {
+                // Redirect to logout page
+                window.location.href = 'logout.php';
+            });
+
+            cancelLogoutBtn.addEventListener('click', () => {
+                // Hide the modal and stay on the page
+                logoutConfirmModal.style.display = 'none';
+                showAdminMessage('You chose to stay on the admin panel.', 'success');
+            });
+
+            // Close modal when clicking outside
+            logoutConfirmModal.addEventListener('click', (e) => {
+                if (e.target === logoutConfirmModal) {
+                    logoutConfirmModal.style.display = 'none';
+                }
+            });
         });
 
         // Add a reusable confirmation modal to the HTML body if not present
