@@ -2770,7 +2770,7 @@ if (!isset($_SESSION['admin_id'])) {
                                     <td>${admin.email}${admin.email === currentEmail ? ' <span style=\'color:#4ecdc4;font-weight:700;\'>(You)</span>' : ''}</td>
                                     <td>${admin.created_at}</td>
                                     <td>
-                                        ${admin.email !== currentEmail ? `<button class='delete-btn' data-id='${admin.id}' style='padding:0.5rem 1.2rem;font-size:1rem;'>Delete</button>` : ''}
+                                        ${currentEmail === 'fedluabdulhakim7@gmail.com' && admin.email !== currentEmail ? `<button class='delete-btn' data-id='${admin.id}' style='padding:0.5rem 1.2rem;font-size:1rem;'>Delete</button>` : ''}
                                     </td>
                                 </tr>
                             `).join('')}
