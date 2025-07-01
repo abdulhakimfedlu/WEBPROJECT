@@ -880,6 +880,7 @@ if (!isset($_SESSION['admin_id'])) {
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             padding: 1.2rem 1.5rem;
             margin-bottom: 1.2rem;
+            border-left: 4px solid var(--primary-color);
         }
 
         .food-item-card, .food-card {
@@ -1160,22 +1161,9 @@ if (!isset($_SESSION['admin_id'])) {
             <!-- Reports Page -->
             <div class="content-page" id="reports">
                 <div class="admin-header">
-                    <h1>Reports</h1>
+                    <h1>Customer Feedback</h1>
                 </div>
-                <div class="report-charts" data-aos="fade-up">
-                    <div class="chart-card">
-                        <h3>Sales Overview</h3>
-                        <div class="chart-placeholder">Sales Chart Placeholder</div>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Top Products</h3>
-                        <div class="chart-placeholder">Product Chart Placeholder</div>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Customer Feedback</h3>
-                        <div class="chart-placeholder">Feedback Chart Placeholder</div>
-                    </div>
-                </div>
+                <div id="feedbackList" style="margin-top:2rem;"></div>
             </div>
         </main>
     </div>
@@ -2443,7 +2431,7 @@ if (!isset($_SESSION['admin_id'])) {
                     .then(data => {
                         const feedbackList = document.getElementById('feedbackList');
                         feedbackList.innerHTML = '';
-                        if (data.length === 0) {
+                        if (!data.length) {
                             feedbackList.innerHTML = '<div style="color:#aaa;">No feedback yet.</div>';
                             return;
                         }
@@ -2451,16 +2439,19 @@ if (!isset($_SESSION['admin_id'])) {
                             const card = document.createElement('div');
                             card.classList.add('feedback-card');
                             card.innerHTML = `
-                                <strong>${item.name}</strong> <span style="color:#888;">(${item.email})</span>
-                                <div style="margin:0.5rem 0;">${item.message}</div>
+                                <div style="font-weight:600;font-size:1.1rem;">${item.name} <span style="color:#888;font-size:0.98rem;">(${item.email})</span></div>
+                                <div style="margin:0.3rem 0 0.5rem 0;color:#555;"><strong>Subject:</strong> ${item.subject}</div>
+                                <div style="margin-bottom:0.5rem;">${item.message}</div>
                                 <div style="color:#aaa;font-size:0.9rem;">${item.created_at}</div>
                             `;
                             feedbackList.appendChild(card);
                         });
                     });
             }
-            // Call this on page load in admin panel:
-            loadFeedback();
+            // Load feedback on reports tab open
+            const reportsTab = document.querySelector('a[href="#reports"]');
+            if (reportsTab) reportsTab.addEventListener('click', loadFeedback);
+            if (document.getElementById('reports').classList.contains('active')) loadFeedback();
 
             document.getElementById('refreshMessagesBtn').addEventListener('click', fetchMessages);
 
