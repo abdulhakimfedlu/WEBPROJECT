@@ -2546,6 +2546,144 @@ if (!isset($_SESSION['admin_id'])) {
                     logoutConfirmModal.style.display = 'none';
                 }
             });
+
+            // Inside DOMContentLoaded event, after all other modal/form logic
+            // --- Inventory Section Logic ---
+            const addInventoryBtn = document.getElementById('addInventoryBtn');
+            const addInventoryModal = document.getElementById('addInventoryModal');
+            const cancelAddInventoryModal = document.getElementById('cancelAddInventoryModal');
+            const addInventoryForm = document.getElementById('addInventoryForm');
+            const addInventoryMsg = document.getElementById('addInventoryMsg');
+            const editInventoryModal = document.getElementById('editInventoryModal');
+            const cancelEditInventoryModal = document.getElementById('cancelEditInventoryModal');
+            const editInventoryForm = document.getElementById('editInventoryForm');
+            const editInventoryMsg = document.getElementById('editInventoryMsg');
+            const inventoryTableBody = document.getElementById('inventoryTableBody');
+
+            function showInventoryMsg(el, msg, type = 'info') {
+                el.textContent = msg;
+                el.style.display = 'block';
+                el.style.background = type === 'error' ? 'rgba(255,107,107,0.12)' : 'rgba(78,205,196,0.10)';
+                el.style.color = type === 'error' ? '#ff6b6b' : '#4ecdc4';
+                el.style.fontWeight = '600';
+                el.style.textAlign = 'center';
+                el.style.padding = '1.2rem 0';
+                setTimeout(() => { el.style.display = 'none'; }, 3500);
+            }
+
+            function loadInventory() {
+                fetch('inventory_process.php?action=list')
+                    .then(res => res.json())
+                    .then(data => {
+                        inventoryTableBody.innerHTML = '';
+                        if (!data.success || !data.items.length) {
+                            inventoryTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#aaa;">No inventory items.</td></tr>';
+                            return;
+                        }
+                        data.items.forEach(item => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>${item.item}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.unit}</td>
+                                <td>${item.status}</td>
+                                <td>
+                                    <button class="edit-btn" data-id="${item.id}"><i class="fas fa-edit"></i></button>
+                                    <button class="delete-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                                </td>
+                            `;
+                            inventoryTableBody.appendChild(tr);
+                        });
+                        // Add edit/delete listeners
+                        document.querySelectorAll('.edit-btn').forEach(btn => {
+                            btn.onclick = function() {
+                                const id = this.getAttribute('data-id');
+                                const item = data.items.find(i => i.id == id);
+                                document.getElementById('editInventoryId').value = item.id;
+                                document.getElementById('editInventoryItem').value = item.item;
+                                document.getElementById('editInventoryQuantity').value = item.quantity;
+                                document.getElementById('editInventoryUnit').value = item.unit;
+                                document.getElementById('editInventoryStatus').value = item.status;
+                                editInventoryModal.style.display = 'flex';
+                            };
+                        });
+                        document.querySelectorAll('.delete-btn').forEach(btn => {
+                            btn.onclick = function() {
+                                const id = this.getAttribute('data-id');
+                                customConfirm('Are you sure you want to delete this inventory item?', () => {
+                                    fetch('inventory_process.php', {
+                                        method: 'POST',
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                        body: new URLSearchParams({action:'delete', id})
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        showInventoryMsg(addInventoryMsg, data.message, data.success ? 'success' : 'error');
+                                        if (data.success) loadInventory();
+                                    });
+                                });
+                            };
+                        });
+                    });
+            }
+
+            if (addInventoryBtn && addInventoryModal && addInventoryForm) {
+                addInventoryBtn.addEventListener('click', () => {
+                    addInventoryModal.style.display = 'flex';
+                });
+                cancelAddInventoryModal.addEventListener('click', () => {
+                    addInventoryModal.style.display = 'none';
+                    addInventoryForm.reset();
+                });
+                addInventoryForm.onsubmit = function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(addInventoryForm);
+                    formData.append('action', 'add');
+                    fetch('inventory_process.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        showInventoryMsg(addInventoryMsg, data.message, data.success ? 'success' : 'error');
+                        if (data.success) {
+                            addInventoryForm.reset();
+                            addInventoryModal.style.display = 'none';
+                            loadInventory();
+                        }
+                    });
+                };
+            }
+
+            if (editInventoryModal && editInventoryForm) {
+                cancelEditInventoryModal.addEventListener('click', () => {
+                    editInventoryModal.style.display = 'none';
+                    editInventoryForm.reset();
+                });
+                editInventoryForm.onsubmit = function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(editInventoryForm);
+                    formData.append('action', 'edit');
+                    fetch('inventory_process.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        showInventoryMsg(editInventoryMsg, data.message, data.success ? 'success' : 'error');
+                        if (data.success) {
+                            editInventoryForm.reset();
+                            editInventoryModal.style.display = 'none';
+                            loadInventory();
+                        }
+                    });
+                };
+            }
+
+            // Load inventory on inventory tab open
+            const inventoryTab = document.querySelector('a[href="#inventory"]');
+            if (inventoryTab) inventoryTab.addEventListener('click', loadInventory);
+            if (document.getElementById('inventory').classList.contains('active')) loadInventory();
         });
 
         // Add a reusable confirmation modal to the HTML body if not present
@@ -2604,5 +2742,74 @@ if (!isset($_SESSION['admin_id'])) {
             });
         }
     </script>
+
+    <!-- Add Inventory Modal -->
+    <div class="modal" id="addInventoryModal">
+        <div class="modal-content">
+            <h2>Add Inventory Item</h2>
+            <form id="addInventoryForm">
+                <div class="form-group">
+                    <label for="inventoryItem">Item Name</label>
+                    <input type="text" id="inventoryItem" name="item" required>
+                </div>
+                <div class="form-group">
+                    <label for="inventoryQuantity">Quantity</label>
+                    <input type="number" id="inventoryQuantity" name="quantity" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="inventoryUnit">Unit</label>
+                    <input type="text" id="inventoryUnit" name="unit" required>
+                </div>
+                <div class="form-group">
+                    <label for="inventoryStatus">Status</label>
+                    <select id="inventoryStatus" name="status">
+                        <option value="In Stock">In Stock</option>
+                        <option value="Low Stock">Low Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="submit-btn"><i class="fas fa-plus"></i> Add Item</button>
+                    <button type="button" class="cancel-btn" id="cancelAddInventoryModal"><i class="fas fa-times"></i> Cancel</button>
+                </div>
+                <div id="addInventoryMsg" style="display:none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Inventory Modal -->
+    <div class="modal" id="editInventoryModal">
+        <div class="modal-content">
+            <h2>Edit Inventory Item</h2>
+            <form id="editInventoryForm">
+                <input type="hidden" id="editInventoryId" name="id">
+                <div class="form-group">
+                    <label for="editInventoryItem">Item Name</label>
+                    <input type="text" id="editInventoryItem" name="item" required>
+                </div>
+                <div class="form-group">
+                    <label for="editInventoryQuantity">Quantity</label>
+                    <input type="number" id="editInventoryQuantity" name="quantity" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="editInventoryUnit">Unit</label>
+                    <input type="text" id="editInventoryUnit" name="unit" required>
+                </div>
+                <div class="form-group">
+                    <label for="editInventoryStatus">Status</label>
+                    <select id="editInventoryStatus" name="status">
+                        <option value="In Stock">In Stock</option>
+                        <option value="Low Stock">Low Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="submit-btn"><i class="fas fa-save"></i> Save Changes</button>
+                    <button type="button" class="cancel-btn" id="cancelEditInventoryModal"><i class="fas fa-times"></i> Cancel</button>
+                </div>
+                <div id="editInventoryMsg" style="display:none;"></div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

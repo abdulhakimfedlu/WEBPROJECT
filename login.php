@@ -159,68 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <button type="submit">Login</button>
         </form>
-        <div style="margin-top:1.2rem;">
-            <a href="#" id="forgotPasswordLink" style="color:#ff9800;text-decoration:underline;font-size:1.05rem;">Forgot Password?</a>
-        </div>
         <?php if ($error): ?>
             <div id="error-message" class="error"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
-
-        <!-- Forgot Password Modal -->
-        <div id="forgotPasswordModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:2000;justify-content:center;align-items:center;">
-            <div style="background:#fff;padding:2.5rem 2rem 2rem 2rem;border-radius:16px;max-width:350px;width:90%;margin:0 auto;text-align:center;box-shadow:0 8px 32px rgba(80,80,80,0.13);position:relative;">
-                <h2 style="margin-bottom:1.2rem;font-size:1.5rem;color:#ff9800;">Reset Password</h2>
-                <form id="forgotPasswordForm">
-                    <div class="form-group" style="margin-bottom:1.2rem;">
-                        <input type="email" id="forgotEmail" name="forgot_email" placeholder="Enter your admin email" required style="width:100%;padding:0.9rem 1rem;border-radius:8px;border:1.5px solid #ffd699;font-size:1.1rem;">
-                    </div>
-                    <button type="submit" style="background:#ff9800;color:#fff;padding:0.8rem 2.2rem;border:none;border-radius:50px;font-size:1.1rem;font-weight:600;cursor:pointer;">Send Reset Link</button>
-                    <button type="button" id="closeForgotModal" style="background:#eee;color:#333;padding:0.8rem 2.2rem;border:none;border-radius:50px;font-size:1.1rem;margin-left:0.7rem;">Cancel</button>
-                </form>
-                <div id="forgotMsg" style="margin-top:1.2rem;display:none;"></div>
-            </div>
-        </div>
-
-        <script>
-        // Forgot Password Modal logic
-        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
-        const forgotPasswordModal = document.getElementById('forgotPasswordModal');
-        const closeForgotModal = document.getElementById('closeForgotModal');
-        forgotPasswordLink.onclick = function(e) {
-            e.preventDefault();
-            forgotPasswordModal.style.display = 'flex';
-        };
-        closeForgotModal.onclick = function() {
-            forgotPasswordModal.style.display = 'none';
-        };
-        forgotPasswordModal.onclick = function(e) {
-            if (e.target === forgotPasswordModal) forgotPasswordModal.style.display = 'none';
-        };
-        </script>
-        <script>
-        // Forgot Password AJAX
-        document.getElementById('forgotPasswordForm').onsubmit = function(e) {
-            e.preventDefault();
-            var email = document.getElementById('forgotEmail').value.trim();
-            var msgDiv = document.getElementById('forgotMsg');
-            msgDiv.style.display = 'none';
-            msgDiv.textContent = '';
-            fetch('admin_forgot_password.php', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                body: new URLSearchParams({email: email})
-            })
-            .then(res => res.json())
-            .then(data => {
-                msgDiv.style.display = 'block';
-                msgDiv.style.color = data.success ? '#4ecdc4' : '#ff6b6b';
-                msgDiv.textContent = data.message;
-                if (data.success && data.reset_link) {
-                    msgDiv.innerHTML += '<br><span style="font-size:0.95rem;color:#888;">(Demo: <a href="'+data.reset_link+'" target="_blank">Reset Link</a>)</span>';
-                }
-            });
-        };
-        </script>
     </div>
     <script>
         // Toggle password visibility
