@@ -1133,23 +1133,27 @@ if (!isset($_SESSION['admin_id'])) {
             <!-- Settings Page -->
             <div class="content-page" id="settings">
                 <div class="admin-header">
-                    <h1>Settings</h1>
+                    <h1>Admin Management</h1>
                 </div>
-                <div class="settings-form" data-aos="fade-up">
-                    <h2>Store Settings</h2>
-                    <div class="form-group">
-                        <label for="storeName">Store Name</label>
-                        <input type="text" id="storeName" value="Juice Plus+">
-                    </div>
-                    <div class="form-group">
-                        <label for="storeEmail">Email</label>
-                        <input type="email" id="storeEmail" value="abduJabez@gmail.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="storeHours">Operating Hours</label>
-                        <textarea id="storeHours">Mon-Sat: 7am-7pm, Sun: 8am-5pm</textarea>
-                    </div>
-                    <button class="submit-btn"><i class="fas fa-save" aria-label="Save"></i> Save Changes</button>
+                <div class="settings-form" data-aos="fade-up" style="max-width:700px;">
+                    <h2>Add New Admin</h2>
+                    <form id="addAdminForm" style="margin-bottom:2rem;">
+                        <div class="form-group">
+                            <label for="newAdminEmail">Email</label>
+                            <input type="email" id="newAdminEmail" name="email" required autocomplete="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="newAdminPassword">Password</label>
+                            <input type="password" id="newAdminPassword" name="password" required autocomplete="new-password">
+                        </div>
+                        <div class="modal-actions">
+                            <button type="submit" class="submit-btn"><i class="fas fa-user-plus"></i> Add Admin</button>
+                        </div>
+                        <div id="addAdminMsg" style="display:none;"></div>
+                    </form>
+
+                    <h2 style="margin-bottom:1rem;">All Admins</h2>
+                    <div id="adminListContainer"></div>
                 </div>
             </div>
 
@@ -2741,6 +2745,94 @@ if (!isset($_SESSION['admin_id'])) {
                 }, 800);
             });
         }
+
+        // --- Admin Settings Section Logic ---
+        const addAdminForm = document.getElementById('addAdminForm');
+        const addAdminMsg = document.getElementById('addAdminMsg');
+        const adminListContainer = document.getElementById('adminListContainer');
+
+        function showSettingsMsg(el, msg, type = 'info') {
+            el.textContent = msg;
+            el.style.display = 'block';
+            el.style.background = type === 'error' ? 'rgba(255,107,107,0.12)' : 'rgba(78,205,196,0.10)';
+            el.style.color = type === 'error' ? '#ff6b6b' : '#4ecdc4';
+            el.style.fontWeight = '600';
+            el.style.textAlign = 'center';
+            el.style.padding = '1.2rem 0';
+            setTimeout(() => { el.style.display = 'none'; }, 3500);
+        }
+
+        function loadAdmins() {
+            fetch('admin_settings.php?action=list')
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.success) {
+                        adminListContainer.innerHTML = '<div style="color:#ff6b6b;">Failed to load admins.</div>';
+                        return;
+                    }
+                    const currentEmail = data.current_email;
+                    adminListContainer.innerHTML = `<table style="width:100%;border-collapse:collapse;">
+                        <thead><tr><th>Email</th><th>Created</th><th>Action</th></tr></thead>
+                        <tbody>
+                            ${data.admins.map(admin => `
+                                <tr>
+                                    <td>${admin.email}${admin.email === currentEmail ? ' <span style=\'color:#4ecdc4;font-weight:700;\'>(You)</span>' : ''}</td>
+                                    <td>${admin.created_at}</td>
+                                    <td>
+                                        ${admin.email !== currentEmail ? `<button class='delete-btn' data-id='${admin.id}' style='padding:0.5rem 1.2rem;font-size:1rem;'>Delete</button>` : ''}
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>`;
+                    // Add delete handlers
+                    adminListContainer.querySelectorAll('.delete-btn').forEach(btn => {
+                        btn.onclick = function() {
+                            const id = this.getAttribute('data-id');
+                            customConfirm('Are you sure you want to delete this admin account?', () => {
+                                fetch('admin_settings.php', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                    body: new URLSearchParams({action:'delete', id})
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    showSettingsMsg(addAdminMsg, data.message, data.success ? 'success' : 'error');
+                                    if (data.success) loadAdmins();
+                                });
+                            });
+                        };
+                    });
+                });
+        }
+
+        addAdminForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const email = document.getElementById('newAdminEmail').value.trim();
+            const password = document.getElementById('newAdminPassword').value;
+            if (!email || !password) {
+                showSettingsMsg(addAdminMsg, 'Email and password are required.', 'error');
+                return;
+            }
+            fetch('admin_settings.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: new URLSearchParams({action:'add', email, password})
+            })
+            .then(res => res.json())
+            .then(data => {
+                showSettingsMsg(addAdminMsg, data.message, data.success ? 'success' : 'error');
+                if (data.success) {
+                    addAdminForm.reset();
+                    loadAdmins();
+                }
+            });
+        });
+
+        // Load admins on settings tab open
+        const settingsTab = document.querySelector('a[href="#settings"]');
+        if (settingsTab) settingsTab.addEventListener('click', loadAdmins);
+        if (document.getElementById('settings').classList.contains('active')) loadAdmins();
     </script>
 
     <!-- Add Inventory Modal -->
