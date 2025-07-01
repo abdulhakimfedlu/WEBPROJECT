@@ -1750,11 +1750,13 @@ if (!isset($_SESSION['admin_id'])) {
                                     .then(data => {
                                         const emp = data.find(e => e.id == id);
                                         if (emp) {
-                                            document.getElementById('viewEmployeePhoto').src = emp.image || 'https://via.placeholder.com/100';
+                                            // Fix image path for correct display
+                                            let imgPath = emp.image ? '/WEBWEB/' + emp.image.replace(/^\/+/, '') : 'https://via.placeholder.com/100';
+                                            document.getElementById('viewEmployeePhoto').src = imgPath;
                                             document.getElementById('viewEmployeeName').textContent = `Name: ${emp.name}`;
                                             document.getElementById('viewEmployeeRole').textContent = `Role: ${emp.role.charAt(0).toUpperCase() + emp.role.slice(1)}`;
-                                            document.getElementById('viewEmployeePhone').textContent = `Phone: ${emp.phone}`;
-                                            document.getElementById('viewEmployeeSalary').textContent = `Salary: ${emp.salary} Birr`;
+                                            document.getElementById('viewEmployeePhone').textContent = `Phone: ${emp.phone || ''}`;
+                                            document.getElementById('viewEmployeeSalary').textContent = `Salary: ${emp.salary ? emp.salary + ' Birr' : ''}`;
                                             viewEmployeeModal.style.display = 'flex';
                                         }
                                     });

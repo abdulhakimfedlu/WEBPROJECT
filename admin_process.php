@@ -42,13 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($action === 'add_employee') {
         $name = trim($_POST['name']);
         $role = trim($_POST['role']);
+        $phone = trim($_POST['phone']);
+        $salary = floatval($_POST['salary']);
         $image = trim($_POST['image']);
 
         if (empty($name) || empty($role)) {
             $response['message'] = 'Name and role are required.';
         } else {
-            $stmt = $conn->prepare("INSERT INTO employees (name, role, image) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $name, $role, $image);
+            $stmt = $conn->prepare("INSERT INTO employees (name, role, phone, salary, image) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssds", $name, $role, $phone, $salary, $image);
             if ($stmt->execute()) {
                 $response['success'] = true;
                 $response['message'] = 'Employee added successfully.';
