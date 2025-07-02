@@ -74,7 +74,7 @@
             </div>
             <div class="hero-image">
                 <div class="juice-bottle">
-                    <img src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?auto=format&fit=crop&w=880&q=80" alt="Premium Juice">
+                    <img src="images/homepage.webp" alt="Premium Juice">
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <p class="testimonial-text">"Juice Plus+ has transformed my mornings! The Tropical Sunrise is my go-to for a burst of energy."</p>
+                        <p class="testimonial-text">"ጁስ ፕላስ ህይወቴን ለውጦታል .. ካየሁት ካፌዎች ሁሉ የተለየ ነው።"</p>
                         <div class="testimonial-author">
                             <img src="images/chaltu.jpg" alt="Customer">
                             <div>
@@ -170,7 +170,7 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star-half-alt"></i>
                         </div>
-                        <p class="testimonial-text">"The Green Detox is so refreshing and makes me feel amazing. Highly recommend!"</p>
+                        <p class="testimonial-text">"ለስፓርተኞች እና ለአጠቃላይ ጤናማ ምግብ ፈላጊዎች በሙሉ ይሄንን ቤት Highly Recommend አደርጋችዋለው።"</p>
                         <div class="testimonial-author">
                             <img src="images/Alex.jpg" alt="Customer">
                             <div>
@@ -192,7 +192,7 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- CTA Section nw -->
     <section class="cta" id="cta">
         <div class="cta-content container">
             <div class="cta-text" data-aos="fade-right">
@@ -205,7 +205,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer  nw -->
     <footer class="footer">
         <div class="footer-content container">
             <div class="footer-main">
@@ -255,12 +255,12 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
+    <!-- Back to Top Button nw -->
     <a href="#" class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </a>
 
-    <!-- JavaScript -->
+    <!-- JavaScript link madreg -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
