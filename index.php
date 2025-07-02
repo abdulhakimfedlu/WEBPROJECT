@@ -231,13 +231,13 @@
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="200">
                     <h4>Our Locations</h4>
                     <ul>
-                        <li><a href="#">Addis Ababa Juice Bar</a></li>
+                        <li><a href="contact.php">Addis Ababa Juice Bar</a></li>
                     </ul>
                 </div>
                 <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
                     <h4>Contact Info</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Juice Street, Addis Ababa</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 3 branches, Addis Ababa</li>
                         <li><i class="fas fa-phone"></i> 0939900633</li>
                         <li><i class="fas fa-envelope"></i> abduJabez@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Mon-Sat: 7am-7pm, Sun: 8am-5pm</li>
