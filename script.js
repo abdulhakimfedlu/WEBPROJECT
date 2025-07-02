@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Add to Cart (re-bind for dynamically rendered items)
+    // Add to Cart 
     function bindAddToCartButtons() {
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.onclick = function() {
