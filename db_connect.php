@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $username = 'root';
-$password = ''; // Default XAMPP password is empty
+$password = ''; 
 $database = 'juiceplus';
 
 // Create connection
