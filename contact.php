@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>Absolutely! We offer delivery through our website and partner apps. For large orders (10+ juices) or events, please contact us at least 48 hours in advance. We also offer catering services with customizable juice menus for weddings, corporate events, and other special occasions.</p>
+                        <p>Currently not available for delivery.</p>
                     </div>
                 </div>
             </div>
