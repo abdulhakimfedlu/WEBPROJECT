@@ -163,8 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div id="error-message" class="error"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
     </div>
-    <script>
-        // Toggle password visibility
+    <!-- <script>
+        
         const passwordInput = document.getElementById('password');
         const togglePassword = document.createElement('i');
         togglePassword.className = 'fas fa-eye toggle-password';
@@ -177,6 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             togglePassword.classList.toggle('fa-eye-slash', type === 'text');
             togglePassword.classList.toggle('active');
         });
-    </script>
+    </script> -->
 </body>
 </html>

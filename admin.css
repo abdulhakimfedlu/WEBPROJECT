@@ -1,73 +1,4 @@
-/* Admin Panel Styles */
-.order-complete-modal {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.6);
-    z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-}
-.order-complete-modal.active {
-    opacity: 1;
-    visibility: visible;
-    display: flex;
-}
-.order-complete-modal .modal-content {
-    background: white;
-    padding: 3rem 2rem;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    transform: scale(0.95);
-    transition: transform 0.3s;
-}
-.order-complete-modal.active .modal-content {
-    transform: scale(1);
-}
-.order-complete-modal .modal-icon {
-    font-size: 4rem;
-    color: var(--secondary-color);
-    margin-bottom: 1.5rem;
-    animation: bounceIn 0.8s ease;
-}
-@keyframes bounceIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-}
-.order-complete-modal h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: var(--dark-color);
-}
-.order-complete-modal p {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-bottom: 2rem;
-}
-.order-complete-modal .ok-btn {
-    background: var(--bg-gradient);
-    color: white;
-    padding: 1rem 3rem;
-    border-radius: 50px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-}
-.order-complete-modal .ok-btn:hover {
-    background: var(--primary-color);
-    transform: translateY(-2px);
-} 
-
-        .order-complete-modal {
+   .order-complete-modal {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0,0,0,0.6);
@@ -134,9 +65,7 @@
             background: var(--primary-color);
             transform: translateY(-2px);
         }
-   
-        
-        /* Admin Panel Styles */
+    /* Admin Panel Styles */
         .admin-panel {
             display: flex;
             min-height: 100vh;
@@ -1108,4 +1037,3 @@
                 gap: 0.7rem;
             }
         }
-    

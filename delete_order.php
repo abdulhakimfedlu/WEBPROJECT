@@ -6,7 +6,7 @@ $response = ['success' => false, 'message' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = intval($_POST['id']);
-    // Delete order (order_items will be deleted via ON DELETE CASCADE)
+    
     $stmt = $conn->prepare('DELETE FROM orders WHERE id = ?');
     $stmt->bind_param('i', $id);
     if ($stmt->execute()) {

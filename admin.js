@@ -1,7 +1,4 @@
-// ... JavaScript from admin.php <script> blocks ... 
-
 function adminLogout() {
-    // Show logout confirmation modal instead of direct redirect
     const logoutModal = document.getElementById('logoutConfirmModal');
     logoutModal.style.display = 'flex';
 }
@@ -23,11 +20,25 @@ function loadCategories() {
     fetch('get_categories.php')
         .then(response => response.json())
         .then(data => {
+            console.log('Loaded categories:', data); 
             categories = data;
             renderCategories();
+            updateCategoryDropdowns();
         })
         .catch(error => {
             console.error('Error loading categories:', error);
+        });
+}
+
+function updateCategoryDropdowns() {
+    fetch('get_categories.php')
+        .then(response => response.json())
+        .then(data => {
+            const foodCategorySelect = document.getElementById('foodCategory');
+            const editFoodCategorySelect = document.getElementById('editFoodCategory');
+            if (!foodCategorySelect || !editFoodCategorySelect) return;
+            foodCategorySelect.innerHTML = data.map(cat => `<option value="${cat.name}">${cat.name}</option>`).join('');
+            editFoodCategorySelect.innerHTML = data.map(cat => `<option value="${cat.name}">${cat.name}</option>`).join('');
         });
 }
 
@@ -119,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add Food
     if (addFoodItemForm) {
-        // Duplicate handler removed to prevent double submission
+    
     }
 
     // Add Employee
@@ -128,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const formData = new FormData(addEmployeeForm);
             formData.append('action', 'add_employee');
-            // The image field is already set by the hidden input
+        
             fetch('admin_process.php', {
                 method: 'POST',
                 body: formData
@@ -162,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
                         <p>Price: $${item.price}</p>
-                        <p>Category: ${item.category}</p>
+                        <p>Category: ${item.category_name}</p>
                         ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width:100px;">` : ''}
                         ${item.badge ? `<span>${item.badge}</span>` : ''}
                         <button onclick="deleteFood(${item.id})">Delete</button>
@@ -170,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     foodItemsList.appendChild(foodCard);
                 });
                 updateCategoryDropdownsFromFoods(data);
-                renderCategories(data); // Pass foods directly
+                // renderCategories(data); // REMOVE THIS LINE
             });
     }
 
@@ -406,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}">
                 <h3>${item.name}</h3>
                 <p>$${item.price.toFixed(2)}</p>
-                <p>${item.category}</p>
+                <p>${item.category_name}</p>
                 ${item.badge ? `<div class="item-badge ${item.badge.toLowerCase()}">${item.badge}</div>` : ''}
                 <div class="actions">
                     <button class="edit-btn" data-id="${item.id}" aria-label="Edit item"><i class="fas fa-edit"></i></button>
@@ -418,20 +429,19 @@ document.addEventListener('DOMContentLoaded', () => {
         addFoodItemListeners();
     }
 
-    function renderCategories(foods) {
+    function renderCategories() {
         categoriesList.innerHTML = '';
-        const uniqueCategories = [...new Set(foods.map(f => f.category).filter(Boolean))];
-        uniqueCategories.forEach(catName => {
-            const catFood = foods.find(f => f.category === catName && parseFloat(f.price) === 0);
-            const description = catFood ? catFood.description : '';
+        categories.forEach(cat => {
+            const name = cat.name || '(No Name)';
+            const desc = cat.description || '';
             const card = document.createElement('div');
             card.classList.add('category-card');
             card.innerHTML = `
-                <h3>${catName}</h3>
-                <p>${description}</p>
+                <h3>${name}</h3>
+                <p>${desc}</p>
                 <div class="actions">
-                    <button class="edit-btn" data-name="${catName}" aria-label="Edit"><i class="fas fa-edit"></i></button>
-                    <button class="delete-btn" data-name="${catName}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
+                    <button class="edit-btn" data-id="${cat.id}" aria-label="Edit"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn" data-id="${cat.id}" aria-label="Delete category"><i class="fas fa-trash"></i></button>
                 </div>
             `;
             categoriesList.appendChild(card);
@@ -565,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addFoodItemBtn.addEventListener('click', () => {
         addFoodItemModal.style.display = 'flex';
         foodPhotoPreview.style.display = 'none';
+        updateCategoryDropdowns(); // Ensure dropdown is always up-to-date
     });
 
     cancelFoodItemModal.addEventListener('click', () => {
@@ -637,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('viewFoodName').textContent = `Name: ${item.name}`;
                 document.getElementById('viewFoodPrice').textContent = `Price: $${item.price.toFixed(2)}`;
                 document.getElementById('viewFoodDescription').textContent = `Description: ${item.description}`;
-                document.getElementById('viewFoodCategory').textContent = `Category: ${item.category}`;
+                document.getElementById('viewFoodCategory').textContent = `Category: ${item.category_name}`;
                 document.getElementById('viewFoodBadge').textContent = item.badge ? `Badge: ${item.badge}` : '';
                 viewFoodItemModal.style.display = 'flex';
             });
@@ -656,19 +667,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addCategoryForm.addEventListener('submit', e => {
         e.preventDefault();
-        const categoryName = document.getElementById('categoryName').value;
-        const categoryDescription = document.getElementById('categoryDescription').value;
-
-        // Instead of add_category, add a food item with category info
+        const name = document.getElementById('categoryName').value;
+        const description = document.getElementById('categoryDescription').value;
         const formData = new FormData();
-        formData.append('action', 'add_food');
-        formData.append('name', 'Category: ' + categoryName); // or leave blank if you want
-        formData.append('description', categoryDescription);
-        formData.append('price', 0);
-        formData.append('category', categoryName);
-        formData.append('image', '');
-        formData.append('badge', '');
-
+        formData.append('action', 'add_category');
+        formData.append('name', name);
+        formData.append('description', description);
         fetch('admin_process.php', {
             method: 'POST',
             body: formData
@@ -676,18 +680,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                loadFoods(); // This will also update categories
-                addCategoryModal.style.display = 'none';
                 addCategoryForm.reset();
-                showAdminMessage('Category added as a food item!', 'success');
+                loadCategories();
+                showAdminMessage('Category added successfully!', 'success');
             } else {
-                alert('Error: ' + data.message);
+                showAdminMessage(data.message || 'An error occurred.', 'error');
             }
         })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error adding category');
-        });
+        .catch(() => showAdminMessage('An error occurred.', 'error'));
     });
 
     cancelEditCategoryModal.addEventListener('click', () => {
@@ -697,17 +697,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     editCategoryForm.addEventListener('submit', e => {
         e.preventDefault();
+        const id = editCategoryForm.dataset.id;
         const name = document.getElementById('editCategoryName').value;
         const description = document.getElementById('editCategoryDescription').value;
-        const oldName = editCategoryForm.dataset.name;
-
-        // Update in database
         const formData = new FormData();
-        formData.append('action', 'update_category');
-        formData.append('old_name', oldName);
+        formData.append('action', 'edit_category');
+        formData.append('id', id);
         formData.append('name', name);
         formData.append('description', description);
-
         fetch('admin_process.php', {
             method: 'POST',
             body: formData
@@ -715,18 +712,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                loadCategories(); // Reload categories from database
-                loadFoods(); // Reload foods to update category references
-                editCategoryModal.style.display = 'none';
-                editCategoryForm.reset();
+                loadCategories();
+                showAdminMessage('Category updated successfully!', 'success');
             } else {
-                alert('Error: ' + data.message);
+                showAdminMessage(data.message || 'An error occurred.', 'error');
             }
         })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error updating category');
-        });
+        .catch(() => showAdminMessage('An error occurred.', 'error'));
     });
 
     closeViewCategoryModal.addEventListener('click', () => {
@@ -736,49 +728,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function addCategoryListeners() {
         document.querySelectorAll('.category-card .delete-btn').forEach(button => {
             button.addEventListener('click', () => {
-                const name = button.dataset.name;
+                const id = parseInt(button.dataset.id);
                 customConfirm('Are you sure you want to delete this category?', () => {
-                    // Delete from database
-                    const formData = new FormData();
-                    formData.append('action', 'delete_category');
-                    formData.append('name', name);
-
-                    fetch('admin_process.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            loadCategories(); // Reload categories from database
-                            loadFoods(); // Reload foods to update category references
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error deleting category');
-                    });
+                    deleteCategory(id);
                 });
             });
         });
 
         document.querySelectorAll('.category-card .edit-btn').forEach(button => {
             button.addEventListener('click', () => {
-                const name = button.dataset.name;
-                const cat = categories.find(c => c.name === name);
+                const id = parseInt(button.dataset.id);
+                const cat = categories.find(c => c.id === id);
                 document.getElementById('editCategoryName').value = cat.name;
                 document.getElementById('editCategoryDescription').value = cat.description;
-                editCategoryForm.dataset.name = name;
+                editCategoryForm.dataset.id = id;
                 editCategoryModal.style.display = 'flex';
             });
         });
 
         document.querySelectorAll('.category-card .view-btn').forEach(button => {
             button.addEventListener('click', () => {
-                const name = button.dataset.name;
-                const cat = categories.find(c => c.name === name);
+                const id = parseInt(button.dataset.id);
+                const cat = categories.find(c => c.id === id);
                 document.getElementById('viewCategoryName').textContent = `Name: ${cat.name}`;
                 document.getElementById('viewCategoryDescription').textContent = `Description: ${cat.description}`;
                 viewCategoryModal.style.display = 'flex';
@@ -978,7 +949,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const formData = new FormData(addFoodItemForm);
             formData.append('action', 'add_food');
-            // The image field is already set by the hidden input
+            // Do NOT change or delete the 'category' field!
             fetch('admin_process.php', {
                 method: 'POST',
                 body: formData
@@ -988,8 +959,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 showAdminMessage(data.message, data.success ? 'success' : 'error');
                 if (data.success) {
                     addFoodItemForm.reset();
-                    foodPhotoPreview.style.display = 'none';
-                    foodPhotoPathInput.value = '';
+                    if (typeof foodPhotoPreview !== 'undefined') foodPhotoPreview.style.display = 'none';
+                    if (typeof foodPhotoPathInput !== 'undefined') foodPhotoPathInput.value = '';
                     loadFoods();
                 }
             })
@@ -997,13 +968,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Logout Confirmation Modal Handlers
+
     const logoutConfirmModal = document.getElementById('logoutConfirmModal');
     const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
     const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
 
     confirmLogoutBtn.addEventListener('click', () => {
-        // Redirect to logout page
+        
         window.location.href = 'logout.php';
     });
 
@@ -1195,7 +1166,7 @@ function customConfirm(message, onConfirm) {
 function updateCategoryDropdownsFromFoods(foods) {
     const foodCategorySelect = document.getElementById('foodCategory');
     const editFoodCategorySelect = document.getElementById('editFoodCategory');
-    const uniqueCategories = [...new Set(foods.map(f => f.category).filter(Boolean))];
+    const uniqueCategories = [...new Set(foods.map(f => f.category_name).filter(Boolean))];
     foodCategorySelect.innerHTML = uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
     editFoodCategorySelect.innerHTML = uniqueCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
 }
