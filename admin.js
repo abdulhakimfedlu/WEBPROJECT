@@ -4,7 +4,7 @@ function adminLogout() {
 }
 
 
-// Simulated Data Storage
+// Simulated Data Stage
 let employees = [];
 
 let foodItems = [
