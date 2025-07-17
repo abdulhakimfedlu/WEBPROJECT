@@ -2,7 +2,7 @@ function adminLogout() {
     const logoutModal = document.getElementById('logoutConfirmModal');
     logoutModal.style.display = 'flex';
 }
-// (Add all other JS from admin.php <script> blocks here) 
+// (A
 
 // Simulated Data Storage
 let employees = [];
