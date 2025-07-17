@@ -42,7 +42,7 @@ function updateCategoryDropdowns() {
         });
 }
 
-// Admin Functionality
+// Admin Functionali
 document.addEventListener('DOMContentLoaded', () => {
     AOS.init();
     const addEmployeeBtn = document.getElementById('addEmployeeBtn');
