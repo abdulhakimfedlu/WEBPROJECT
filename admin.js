@@ -4,7 +4,7 @@ function adminLogout() {
 }
 
 
-// Simulated Data Stage
+// Simulated Data tage
 let employees = [];
 
 let foodItems = [
