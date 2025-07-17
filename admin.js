@@ -2,7 +2,7 @@ function adminLogout() {
     const logoutModal = document.getElementById('logoutConfirmModal');
     logoutModal.style.display = 'flex';
 }
-// (A
+// (
 
 // Simulated Data Storage
 let employees = [];
