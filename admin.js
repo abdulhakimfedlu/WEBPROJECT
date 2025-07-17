@@ -4,7 +4,7 @@ function adminLogout() {
 }
 
 
-// Simulat
+// Simul
 
 let employees = [];
 
