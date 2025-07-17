@@ -4,7 +4,6 @@ function adminLogout() {
 }
 
 
-// Simul
 
 let employees = [];
 
