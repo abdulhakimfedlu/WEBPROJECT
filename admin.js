@@ -4,7 +4,7 @@ function adminLogout() {
 }
 
 
-// Simulated Data tag
+// Simulated Data 
 let employees = [];
 
 let foodItems = [
