@@ -4,7 +4,6 @@ header('Content-Type: application/json');
 
 
 
-
 // Get all unique categories, preferring the first row for each category
 $result = $conn->query("SELECT MIN(id) as id, category, MAX(description) as description FROM foods WHERE category IS NOT NULL AND category != '' GROUP BY category ORDER BY category ASC");
 $categories = [];
