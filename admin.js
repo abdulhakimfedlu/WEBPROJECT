@@ -3,7 +3,6 @@ function adminLogout() {
     logoutModal.style.display = 'flex';
 }
 
-
 let employees = [];
 
 let foodItems = [
