@@ -5,7 +5,6 @@ function adminLogout() {
 
 
 
-
 let employees = [];
 
 let foodItems = [
