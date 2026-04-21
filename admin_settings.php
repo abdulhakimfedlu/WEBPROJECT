@@ -9,6 +9,8 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 
+
+
 $admin_id = $_SESSION['admin_id'];
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
