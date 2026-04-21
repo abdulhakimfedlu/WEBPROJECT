@@ -13,7 +13,6 @@ $admin_id = $_SESSION['admin_id'];
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
 
-
 // List all admins
 if ($action === 'list') {
     $result = $conn->query('SELECT id, email, created_at FROM admins ORDER BY id ASC');
