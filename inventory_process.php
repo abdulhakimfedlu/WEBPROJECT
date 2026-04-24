@@ -16,7 +16,6 @@
 
 
 
-
 <?php
 require_once 'db_connect.php';
 header('Content-Type: application/json');
