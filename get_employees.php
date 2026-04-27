@@ -9,6 +9,11 @@ while ($row = $result->fetch_assoc()) {
     $employees[] = $row;
 }
 
+
+
+
+
+
 echo json_encode($employees);
 $conn->close();
 ?>
