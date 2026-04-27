@@ -11,7 +11,6 @@ while ($row = $result->fetch_assoc()) {
 
 
 
-
 echo json_encode($employees);
 $conn->close();
 ?>
